@@ -1,0 +1,639 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #23211D; }
+    .page {
+      --stone-50: #FAF6EE;
+      --stone-100: #F2EADA;
+      --stone-200: #E4D8C0;
+      --ink: #262420;
+      --ink-soft: #6B6558;
+      --sea-deep: #1E3A4A;
+      --sea-soft: #4C7A93;
+      --sea-mist: #C9DCE2;
+      --line: rgba(38,36,32,0.14);
+      --footer: #1B2A2E;
+      --accent: #1E3A4A;
+      font-family: 'Jost', 'Segoe UI', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--stone-50);
+      width: 100%;
+    }
+    .page h1, .page h2, .page h3, .page .display {
+      font-family: 'Marcellus', 'Times New Roman', serif;
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 0.01em;
+    }
+    .page p { margin: 0; }
+    .page a { color: inherit; text-decoration: none; }
+    .page a:hover { color: var(--accent); }
+    .page ul { list-style: none; margin: 0; padding: 0; }
+    .page img, .page svg { display: block; }
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 clamp(24px, 5vw, 64px);
+    }
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin: 0 0 18px 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+    .section { padding: clamp(72px, 9vw, 128px) 0; }
+    .section-head { max-width: 640px; margin-bottom: clamp(48px, 6vw, 76px); }
+    .section-title { font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.15; }
+    .section-alt { background: var(--stone-100); }
+    .lede { font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.85; color: var(--ink-soft); font-weight: 300; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 30px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.86rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .btn-primary { background: var(--accent); color: var(--stone-50); border: 1px solid var(--accent); }
+    .btn-primary:hover { opacity: 0.86; color: var(--stone-50); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(250, 246, 238, 0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px clamp(24px, 5vw, 64px);
+      max-width: 1180px; margin: 0 auto;
+    }
+    .logo { display: flex; flex-direction: column; line-height: 1; }
+    .logo-mark { font-family: 'Marcellus', serif; font-size: 1.5rem; letter-spacing: 0.14em; }
+    .logo-sub { font-size: 0.6rem; letter-spacing: 0.32em; color: var(--ink-soft); margin-top: 5px; }
+    .nav-links { display: flex; align-items: center; gap: clamp(20px, 3vw, 40px); }
+    .nav-links a { font-size: 0.86rem; letter-spacing: 0.04em; }
+    .nav-cta { flex-shrink: 0; }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; min-height: clamp(600px, 88vh, 820px); display: flex; flex-direction: column; }
+    .hero-content { position: relative; z-index: 2; padding-top: clamp(90px, 14vh, 150px); }
+    .hero-content .container { max-width: 620px; }
+    .hero h1 { font-size: clamp(2.6rem, 5.4vw, 4.4rem); line-height: 1.08; margin: 22px 0 26px; }
+    .hero-sub { font-size: clamp(1rem, 1.3vw, 1.15rem); color: var(--ink-soft); line-height: 1.75; font-weight: 300; max-width: 480px; margin-bottom: 40px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+    .hero-illustration { position: absolute; left: 0; right: 0; bottom: 0; height: 60%; width: 100%; }
+    .hero-illustration svg { width: 100%; height: 100%; }
+
+    /* Philosophy */
+    .felsefe-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px, 6vw, 90px); align-items: start; }
+    .felsefe-body p + p { margin-top: 22px; }
+    .pull-quote {
+      border-left: 1px solid var(--accent);
+      padding-left: 28px;
+      margin-top: 44px;
+    }
+    .pull-quote q { font-family: 'Marcellus', serif; font-size: clamp(1.3rem, 2vw, 1.6rem); line-height: 1.4; font-style: normal; quotes: none; }
+    .pull-quote cite { display: block; margin-top: 16px; font-size: 0.82rem; letter-spacing: 0.05em; color: var(--ink-soft); font-style: normal; }
+    .felsefe-figure { background: var(--stone-100); border: 1px solid var(--line); padding: 36px; height: 100%; }
+    .felsefe-figure svg { width: 100%; height: auto; }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .service-card { background: var(--stone-50); padding: 42px 34px; display: flex; flex-direction: column; gap: 20px; transition: background 0.2s ease; }
+    .service-card:hover { background: var(--stone-100); }
+    .service-icon { width: 34px; height: 34px; color: var(--accent); }
+    .service-icon svg { width: 100%; height: 100%; }
+    .service-name { font-size: 1.2rem; }
+    .service-desc { font-size: 0.92rem; line-height: 1.7; color: var(--ink-soft); font-weight: 300; }
+
+    /* Projects */
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(28px, 3vw, 44px); }
+    .project-card { display: flex; flex-direction: column; }
+    .project-sketch {
+      background:
+        radial-gradient(var(--stone-200) 1px, transparent 1px) 0 0/16px 16px,
+        var(--stone-100);
+      border: 1px solid var(--line);
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+    .project-sketch svg { width: 100%; height: 100%; }
+    .project-meta { padding-top: 20px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+    .project-name { font-size: 1.3rem; margin-bottom: 6px; }
+    .project-loc { font-size: 0.82rem; color: var(--ink-soft); letter-spacing: 0.04em; }
+    .project-tag { font-size: 0.78rem; color: var(--ink-soft); white-space: nowrap; text-align: right; }
+    .projects-foot { margin-top: 48px; display: flex; justify-content: center; }
+
+    /* Process */
+    .process-row { display: flex; gap: 0; }
+    .process-step { flex: 1; padding-right: 28px; position: relative; }
+    .process-step + .process-step { padding-left: 28px; border-left: 1px solid var(--line); }
+    .process-num { font-family: 'Marcellus', serif; font-size: 1.6rem; color: var(--accent); margin-bottom: 18px; }
+    .process-title { font-size: 1.05rem; margin-bottom: 12px; }
+    .process-desc { font-size: 0.88rem; line-height: 1.7; color: var(--ink-soft); font-weight: 300; }
+
+    /* Testimonials */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 3vw, 44px); }
+    .testimonial-card { background: var(--stone-50); border: 1px solid var(--line); padding: 38px 32px; display: flex; flex-direction: column; }
+    .quote-mark { font-family: 'Marcellus', serif; font-size: 2.6rem; color: var(--accent); line-height: 1; margin-bottom: 14px; }
+    .testimonial-text { font-size: 0.96rem; line-height: 1.75; color: var(--ink); font-weight: 300; flex-grow: 1; }
+    .testimonial-author { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.82rem; letter-spacing: 0.03em; color: var(--ink-soft); }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(40px, 6vw, 90px); }
+    .contact-block + .contact-block { margin-top: 34px; }
+    .contact-label { font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+    .contact-value { font-size: 1.05rem; line-height: 1.6; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-field { display: flex; flex-direction: column; gap: 8px; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-field label { font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+    .form-field input, .form-field textarea {
+      font-family: 'Jost', sans-serif; font-size: 0.95rem; color: var(--ink);
+      background: var(--stone-50); border: 1px solid var(--line); border-radius: 2px;
+      padding: 13px 14px; outline: none;
+    }
+    .form-field input:focus, .form-field textarea:focus { border-color: var(--accent); }
+    .form-field textarea { resize: vertical; min-height: 110px; font-family: 'Jost', sans-serif; }
+    .form-submit { margin-top: 6px; border: none; }
+
+    /* Footer */
+    .footer { background: var(--footer); color: var(--stone-100); padding: 64px 0 30px; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; padding-bottom: 44px; border-bottom: 1px solid rgba(250,246,238,0.14); }
+    .footer .logo-mark { color: var(--stone-50); }
+    .footer .logo-sub { color: rgba(250,246,238,0.5); }
+    .footer-links { display: flex; gap: clamp(24px, 4vw, 56px); flex-wrap: wrap; }
+    .footer-links a { font-size: 0.86rem; color: rgba(250,246,238,0.78); }
+    .footer-links a:hover { color: var(--stone-50); }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { width: 34px; height: 34px; border: 1px solid rgba(250,246,238,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .footer-social svg { width: 15px; height: 15px; color: rgba(250,246,238,0.85); }
+    .footer-bottom { padding-top: 26px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 0.78rem; color: rgba(250,246,238,0.5); }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .felsefe-grid { grid-template-columns: 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .process-row { flex-wrap: wrap; row-gap: 36px; }
+      .process-step { flex: 1 1 45%; }
+      .process-step + .process-step { border-left: none; padding-left: 0; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .process-step { flex: 1 1 100%; }
+      .footer-top { flex-direction: column; }
+    }
+  </style>
+</helmet>
+
+<div class="page" style="--accent: {{accent}};">
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark">LİMEN</span>
+        <span class="logo-sub">MİMARLIK</span>
+      </a>
+      <div class="nav-links">
+        <a href="#felsefe">Felsefe</a>
+        <a href="#hizmetler">Hizmetler</a>
+        <a href="#projeler">Projeler</a>
+        <a href="#surec">Süreç</a>
+        <a href="#referanslar">Referanslar</a>
+      </div>
+      <a href="#iletisim" class="btn btn-primary nav-cta">İletişime Geçin</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="container">
+        <p class="eyebrow">Bodrum'da Mimari Zanaat</p>
+        <h1>Deniz ile Taşın<br>Buluştuğu Mimari</h1>
+        <p class="hero-sub">Bodrum yarımadasında, kıyı manzarasına ve Ege'nin taş dokusuna sadık kalarak lüks villalar tasarlıyor, tasarımdan anahtar teslime kadar uçtan uca uyguluyoruz.</p>
+        <div class="hero-actions">
+          <a href="#iletisim" class="btn btn-primary">Projenizi Konuşalım</a>
+          <a href="#projeler" class="btn btn-ghost">Projelerimizi Görün</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-illustration">
+      <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FAF3E6"/>
+            <stop offset="100%" stop-color="#EDE0CC"/>
+          </linearGradient>
+          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8FB4C2"/>
+            <stop offset="100%" stop-color="#3E6A80"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="1200" height="320" fill="url(#skyGrad)"/>
+        <circle cx="970" cy="110" r="40" fill="#F1D8B0" opacity="0.85"/>
+        <rect x="0" y="320" width="1200" height="280" fill="url(#seaGrad)"/>
+        <path d="M0 430 C 160 390, 340 400, 460 360 L 460 600 L 0 600 Z" fill="#DCCEB0" opacity="0.55"/>
+        <polygon points="255,388 265,340 275,388" fill="#5C6B4C"/>
+        <polygon points="255,400 265,360 275,400" fill="#5C6B4C"/>
+        <polygon points="253,414 265,378 277,414" fill="#4E5C40"/>
+        <rect x="262" y="414" width="6" height="14" fill="#4A4028"/>
+        <polygon points="795,382 805,344 815,382" fill="#5C6B4C"/>
+        <polygon points="793,396 805,358 817,396" fill="#4E5C40"/>
+        <rect x="802" y="396" width="6" height="12" fill="#4A4028"/>
+        <rect x="300" y="330" width="290" height="96" fill="#FBF7EE" stroke="#D8CBAE" stroke-width="1"/>
+        <rect x="560" y="374" width="200" height="52" fill="#F1E4C9" stroke="#D8CBAE" stroke-width="1"/>
+        <rect x="340" y="356" width="46" height="64" fill="#EADFC6"/>
+        <path d="M340 356 a23 23 0 0 1 46 0" fill="#EADFC6"/>
+        <rect x="410" y="352" width="18" height="26" fill="#264256" opacity="0.85"/>
+        <rect x="442" y="352" width="18" height="26" fill="#264256" opacity="0.85"/>
+        <rect x="474" y="352" width="18" height="26" fill="#264256" opacity="0.85"/>
+        <rect x="595" y="390" width="30" height="30" fill="#264256" opacity="0.7"/>
+        <rect x="260" y="424" width="580" height="16" fill="#FBF7EE" stroke="#D8CBAE" stroke-width="1"/>
+        <rect x="300" y="440" width="290" height="12" fill="#6FA0AF"/>
+        <rect x="300" y="440" width="290" height="2" fill="#CDE6EA" opacity="0.8"/>
+        <rect x="260" y="452" width="580" height="3" fill="#1E3A4A" opacity="0.12"/>
+      </svg>
+    </div>
+  </header>
+
+  <section class="section" id="felsefe">
+    <div class="container">
+      <div class="felsefe-grid">
+        <div>
+          <p class="eyebrow">Felsefemiz</p>
+          <h2 class="section-title" style="margin-bottom: 30px;">Yerin Diliyle<br>Konuşan Mimari</h2>
+          <div class="felsefe-body lede">
+            <p>LİMEN, Bodrum yarımadasının ışığını, rüzgârını ve taşını mimarinin özüne yerleştirir. Her villa; arazisinin eğimine, deniz manzarasına ve sahibinin yaşam biçimine göre yeniden düşünülür.</p>
+            <p>Trendlerin değil, zamanın sınadığı oranların peşindeyiz. Yerel taş ocaklarından gelen malzemeler, geniş gölgelikler ve deniz meltemiyle çalışan açık planlarla; konforu teknolojiyle değil, doğru mimariyle sağlıyoruz.</p>
+            <p>Gizlilik, lüks villa sahipleri için bir zarafet meselesidir. Her projeyi bu anlayışla, sükûnet içinde yürütürüz.</p>
+          </div>
+          <div class="pull-quote">
+            <q>Mimari, arazinin sessizce anlattığı hikâyeyi tamamlamaktır.</q>
+            <cite>— [Kurucu Ortak Adı], Kurucu Mimar, LİMEN</cite>
+          </div>
+        </div>
+        <div class="felsefe-figure">
+          <svg viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#8A8270" stroke-width="1">
+            <rect x="20" y="20" width="360" height="420" fill="none" stroke="#D8CBAE"/>
+            <line x1="20" y1="260" x2="380" y2="260"/>
+            <rect x="60" y="120" width="280" height="140" fill="#F2EADA"/>
+            <rect x="60" y="260" width="280" height="60" fill="#E4D8C0"/>
+            <path d="M120 120 a30 30 0 0 1 60 0" />
+            <line x1="120" y1="120" x2="120" y2="180"/>
+            <line x1="180" y1="120" x2="180" y2="180"/>
+            <line x1="220" y1="150" x2="250" y2="150"/>
+            <line x1="220" y1="170" x2="250" y2="170"/>
+            <line x1="280" y1="150" x2="310" y2="150"/>
+            <line x1="280" y1="170" x2="310" y2="170"/>
+            <line x1="60" y1="320" x2="340" y2="320"/>
+            <line x1="90" y1="320" x2="90" y2="400"/>
+            <line x1="150" y1="320" x2="150" y2="400"/>
+            <line x1="250" y1="320" x2="250" y2="400"/>
+            <line x1="310" y1="320" x2="310" y2="400"/>
+            <line x1="60" y1="400" x2="340" y2="400"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="hizmetler">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Hizmetlerimiz</p>
+        <h2 class="section-title">Tasarımdan Uygulamaya,<br>Tek Elden</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="2"/><line x1="16" y1="10" x2="9" y2="26"/><line x1="16" y1="10" x2="23" y2="26"/><line x1="11" y1="20" x2="21" y2="20"/></svg>
+          </div>
+          <h3 class="service-name">Mimari Tasarım</h3>
+          <p class="service-desc">Arazi analizinden kesin projeye; manzara, ışık ve mahremiyet gözetilerek şekillenen özgün villa tasarımları.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"/><path d="M7 14h18v6a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z"/><line x1="9" y1="22" x2="9" y2="26"/><line x1="23" y1="22" x2="23" y2="26"/></svg>
+          </div>
+          <h3 class="service-name">İç Mimari</h3>
+          <p class="service-desc">Mimari ile bütünleşik iç mekânlar; doğal malzemeler, özel mobilya tasarımı ve sakin bir yaşam atmosferi.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 24C8 14 14 8 24 8c0 10-6 16-16 16z"/><path d="M8 24 20 12"/></svg>
+          </div>
+          <h3 class="service-name">Peyzaj Tasarımı</h3>
+          <p class="service-desc">Zeytin ve defne ile şekillenen bahçeler, infinity havuzlar ve arazinin topografyasına uyumlu dış mekânlar.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="7" width="16" height="21" rx="1.5"/><path d="M12 7V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"/><path d="M12 17l3 3 6-7"/></svg>
+          </div>
+          <h3 class="service-name">Proje Yönetimi &amp; Uygulama</h3>
+          <p class="service-desc">Ruhsat sürecinden anahtar teslime; şantiye yönetimi ve usta ekipleriyle titiz bir uygulama takibi.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="6" x2="25" y2="6"/><line x1="7" y1="26" x2="25" y2="26"/><line x1="11" y1="8" x2="11" y2="24"/><line x1="16" y1="8" x2="16" y2="24"/><line x1="21" y1="8" x2="21" y2="24"/></svg>
+          </div>
+          <h3 class="service-name">Restorasyon</h3>
+          <p class="service-desc">Bodrum'un geleneksel taş evlerini özgün dokusuna sadık kalarak günümüz konforuyla yeniden hayata döndürüyoruz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projeler">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Portfolyo</p>
+        <h2 class="section-title">Öne Çıkan Projeler</h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#6B6558" stroke-width="1">
+              <line x1="20" y1="180" x2="300" y2="180"/>
+              <rect x="60" y="120" width="200" height="60" fill="#FAF6EE"/>
+              <rect x="90" y="140" width="30" height="40"/>
+              <rect x="140" y="140" width="30" height="30"/>
+              <rect x="200" y="140" width="30" height="30"/>
+              <rect x="60" y="184" width="200" height="10" fill="#C9DCE2"/>
+              <line x1="60" y1="120" x2="260" y2="120"/>
+            </svg>
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Yalıkavak Rezidansı</h3>
+              <p class="project-loc">Yalıkavak, Bodrum</p>
+            </div>
+            <p class="project-tag">450 m² · Deniz Manzaralı Villa</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#6B6558" stroke-width="1">
+              <line x1="20" y1="185" x2="300" y2="185"/>
+              <rect x="70" y="150" width="180" height="35" fill="#FAF6EE"/>
+              <rect x="100" y="105" width="120" height="45" fill="#F2EADA"/>
+              <rect x="115" y="115" width="25" height="25"/>
+              <rect x="180" y="115" width="25" height="25"/>
+              <rect x="70" y="188" width="180" height="8" fill="#C9DCE2"/>
+            </svg>
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Türkbükü Evi</h3>
+              <p class="project-loc">Türkbükü, Bodrum</p>
+            </div>
+            <p class="project-tag">320 m² · Koy Manzaralı Villa</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#6B6558" stroke-width="1">
+              <line x1="20" y1="185" x2="300" y2="185"/>
+              <rect x="90" y="120" width="140" height="65" fill="#FAF6EE"/>
+              <polygon points="90,120 160,80 230,120" fill="#F2EADA"/>
+              <path d="M150 155 a10 10 0 0 1 20 0 v30 h-20 z"/>
+              <rect x="115" y="140" width="18" height="18"/>
+              <rect x="187" y="140" width="18" height="18"/>
+            </svg>
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Gölköy Taş Ev Restorasyonu</h3>
+              <p class="project-loc">Gölköy, Bodrum</p>
+            </div>
+            <p class="project-tag">210 m² · Restorasyon</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#6B6558" stroke-width="1">
+              <line x1="20" y1="190" x2="300" y2="190"/>
+              <rect x="150" y="125" width="130" height="55" fill="#FAF6EE"/>
+              <rect x="170" y="145" width="24" height="35"/>
+              <rect x="220" y="145" width="24" height="20"/>
+              <line x1="40" y1="190" x2="130" y2="190"/>
+              <line x1="55" y1="175" x2="130" y2="175"/>
+              <line x1="70" y1="160" x2="130" y2="160"/>
+              <polygon points="60,160 68,135 76,160" fill="#5C6B4C" stroke="none"/>
+            </svg>
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Bitez Bahçe Villası</h3>
+              <p class="project-loc">Bitez, Bodrum</p>
+            </div>
+            <p class="project-tag">380 m² · Peyzaj Odaklı Villa</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="projects-foot">
+        <a href="#iletisim" class="btn btn-ghost">Tüm Projeler İçin İletişime Geçin</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="surec">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Süreç</p>
+        <h2 class="section-title">Tasarımdan Teslime</h2>
+      </div>
+      <div class="process-row">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3 class="process-title">Keşif &amp; Konsept</h3>
+          <p class="process-desc">Arazi ziyareti, ihtiyaç analizi ve ilk mimari konseptin geliştirilmesi.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3 class="process-title">Tasarım Geliştirme</h3>
+          <p class="process-desc">Plan, kesit ve görselleştirmelerle projenin detaylandırılması; malzeme ve iç mekân kararları.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3 class="process-title">Ruhsat &amp; Mühendislik</h3>
+          <p class="process-desc">Statik, mekanik ve elektrik projeleri; resmi izin ve ruhsat süreçlerinin yönetimi.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h3 class="process-title">Uygulama &amp; Şantiye</h3>
+          <p class="process-desc">İnşaat sürecinin yerinde denetimi, usta ve tedarikçi koordinasyonu.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">05</div>
+          <h3 class="process-title">Teslim &amp; Sonrası</h3>
+          <p class="process-desc">Anahtar teslimi, iç mekân yerleşimi ve villa sahibine özel bakım rehberliği.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="referanslar">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Referanslar</p>
+        <h2 class="section-title">Villa Sahiplerimiz Anlatıyor</h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">Arazimizin en ufak detayına kadar düşünülmüş bir tasarım süreci yaşadık. Ev, tam da hayal ettiğimiz sükûnette.</p>
+          <div class="testimonial-author">[Villa Sahibi Adı] — Yalıkavak</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">Restorasyon sürecinde evimizin ruhunu koruyarak günümüz konforunu kazandırdılar.</p>
+          <div class="testimonial-author">[Villa Sahibi Adı] — Gölköy</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">Proje yönetimindeki titizlikleri sayesinde İstanbul'dan tek bir kez gelmemiz yeterli oldu.</p>
+          <div class="testimonial-author">[Villa Sahibi Adı] — Türkbükü</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="iletisim">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">İletişim</p>
+        <h2 class="section-title">Projenizi Birlikte<br>Şekillendirelim</h2>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-block">
+            <p class="contact-label">Ofis</p>
+            <p class="contact-value">LİMEN Mimarlık<br>[Bodrum Ofis Adresi]<br>Bodrum, Muğla</p>
+          </div>
+          <div class="contact-block">
+            <p class="contact-label">Telefon</p>
+            <p class="contact-value">[Telefon Numarası]</p>
+          </div>
+          <div class="contact-block">
+            <p class="contact-label">E-posta</p>
+            <p class="contact-value">[E-posta Adresi]</p>
+          </div>
+          <div class="contact-block">
+            <p class="contact-label">Çalışma Saatleri</p>
+            <p class="contact-value">Pazartesi – Cumartesi, 09:00 – 18:00</p>
+          </div>
+        </div>
+        <div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Ad Soyad</label>
+              <input type="text" placeholder="Adınız Soyadınız">
+            </div>
+            <div class="form-field">
+              <label>Telefon</label>
+              <input type="text" placeholder="+90 5xx xxx xx xx">
+            </div>
+            <div class="form-field full">
+              <label>E-posta</label>
+              <input type="email" placeholder="ornek@eposta.com">
+            </div>
+            <div class="form-field full">
+              <label>Villa Konumu</label>
+              <input type="text" placeholder="Örn. Yalıkavak, Gölköy, Türkbükü…">
+            </div>
+            <div class="form-field full">
+              <label>Mesajınız</label>
+              <textarea placeholder="Projeniz hakkında bize kısaca bahsedin…"></textarea>
+            </div>
+            <div class="form-field full">
+              <button type="button" class="btn btn-primary form-submit">Gönder</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#" class="logo">
+          <span class="logo-mark">LİMEN</span>
+          <span class="logo-sub">MİMARLIK</span>
+        </a>
+        <div class="footer-links">
+          <a href="#felsefe">Felsefe</a>
+          <a href="#hizmetler">Hizmetler</a>
+          <a href="#projeler">Projeler</a>
+          <a href="#surec">Süreç</a>
+          <a href="#referanslar">Referanslar</a>
+          <a href="#iletisim">İletişim</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.6-6 2.2-8.4a2.4 2.4 0 1 1 4.6 1c-.4 1.6-1.3 4-3.3 4-1.6 0-2-1.2-1.7-2.4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 LİMEN Mimarlık. Tüm hakları saklıdır.</span>
+        <span>Bodrum, Muğla — Türkiye</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#1E3A4A","options":["#1E3A4A","#2C5470","#3F5B4A","#8A6240"]}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#1E3A4A' };
+  }
+}
+</script>
+</body>
+</html>
