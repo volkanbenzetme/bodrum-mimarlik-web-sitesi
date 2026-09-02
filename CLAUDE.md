@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-This is a **Claude Design canvas** project: a one-page marketing website for **VH Architecture**, Volkan's personal architecture/villa-design firm in Bodrum, Turkey — authored as a `.dc.html` artboard. It lives under `agents/vh-architecture/` in the wider Agent-dosyaları workspace; see `../AGENT.md` for the goals this site serves and `../skills/update-site-content.md` for the process to follow when editing it.
+This is a **Claude Design canvas** project: a one-page marketing website for **KAIRO Studio** (`kairomimarlik.com`), Volkan H. Benzetme's architecture/interior design/construction firm in Yalıkavak, Bodrum — authored as a `.dc.html` artboard. It lives under `agents/kairo-studio/` in the wider Agent-dosyaları workspace (that folder was briefly named `agents/vh-architecture` before the real brand was confirmed — "VH" is the founder's personal monogram used on renders, not the company name); see `../AGENT.md` for the goals this site serves and `../skills/update-site-content.md` for the process to follow when editing it.
+
+Real brand/project facts (services, the 7-project portfolio, the 8-step KAIRO Yöntemi, restoration credentials, contact info) came from the founder's own KAIRO portfolio PDF and tanıtım föyü, shared 2026-09-03 — treat those as source of truth over anything invented in earlier drafts of this site. The site currently uses 4 of the 7 real projects and illustrative SVG sketches in place of real project photos (not yet extracted from the PDFs into web-ready image files).
 
 - `canvas.json` — canvas manifest. Declares the artboard(s) that make up the design, their position/size on the infinite canvas, and which file to open by default (`launch.file`). Currently a single artboard, `Main.dc.html`, sized 1440×7000.
 - `Main.dc.html` — the actual page content: a full static HTML/CSS document wrapped in an `<x-dc>` element, loading `./support.js` (injected by the Design Canvas runtime, not a file to edit here).
@@ -15,7 +17,9 @@ There is no application code or server in this directory. The one piece of real 
 
 **Live at https://volkanbenzetme.github.io/bodrum-mimarlik-web-sitesi/** (GitHub Pages, repo is public). `index.html` in this folder is the served copy — a plain-HTML version of `Main.dc.html` with the `{{accent}}` template placeholder resolved to a literal color and the `<x-dc>`/`<helmet>` wrapper flattened into a real `<head>`, since GitHub Pages has no Design Canvas runtime to do that. **There is no build step wiring these together — after editing `Main.dc.html`, manually re-apply the same two changes to `index.html` (or regenerate it) and commit both.**
 
-A Cloudflare Pages deployment also exists (`vh-architecture.pages.dev`, project name `vh-architecture` in the `Volkanbnztm@gmail.com` Cloudflare account) but is **not usable as the primary link**: `*.pages.dev` is unreachable from the founder's network in Turkey (confirmed on both WiFi and mobile data — likely an ISP/carrier-level block on that shared subdomain, not a deployment issue). See memory `vh-architecture-pages-dev-blocked` for the full finding. If/when a real custom domain is attached to that Cloudflare Pages project, it should work fine and could replace GitHub Pages as the primary link.
+A Cloudflare Pages deployment also exists (`vh-architecture.pages.dev`, project name `vh-architecture` in the `Volkanbnztm@gmail.com` Cloudflare account — named before the rebrand, not renamed since it's unused) but is **not usable as the primary link**: `*.pages.dev` is unreachable from the founder's network in Turkey (confirmed on both WiFi and mobile data — likely an ISP/carrier-level block on that shared subdomain, not a deployment issue). See memory `vh-architecture-pages-dev-blocked` for the full finding.
+
+The founder owns `kairomimarlik.com` (registered at Turhost, DNS currently `dns1/dns2.turhost.com` with no site deployed on it). Once pointed at this GitHub Pages site (via a `CNAME` file here + DNS records at Turhost), that becomes the real production domain — check `git log`/this file for whether that's since been done, since a stale note here is worse than none.
 
 ## Working with `Main.dc.html`
 
@@ -26,7 +30,7 @@ A Cloudflare Pages deployment also exists (`vh-architecture.pages.dev`, project 
   - `#hizmetler` — services
   - `#projeler` — featured projects
   - `#surec` — process (design-to-delivery)
-  - `#referanslar` — testimonials
+  - `#referanslar` — restoration credentials + a note that client references are shared at the first meeting (no fabricated testimonial quotes — see `../AGENT.md` Non-Goals)
   - `#iletisim` — contact + lead form
 - Fonts are loaded from Google Fonts (`Marcellus` for headings/display, `Jost` for body text) via a `<link>` in the `<helmet>` block — keep using these two typefaces rather than adding new ones.
 - There is no verification command to run after edits (no linter/build/tests). To check a change, open the artboard in the Design Canvas viewer/Artifact preview rather than trying to execute it as a script.
