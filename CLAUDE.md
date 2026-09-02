@@ -11,6 +11,12 @@ This is a **Claude Design canvas** project: a one-page marketing website for **V
 
 There is no application code or server in this directory. The one piece of real client-side logic is the lead-capture form at the bottom of `Main.dc.html`, which POSTs directly to [Web3Forms](https://web3forms.com) via `fetch()` — no backend of its own.
 
+## Hosting
+
+**Live at https://volkanbenzetme.github.io/bodrum-mimarlik-web-sitesi/** (GitHub Pages, repo is public). `index.html` in this folder is the served copy — a plain-HTML version of `Main.dc.html` with the `{{accent}}` template placeholder resolved to a literal color and the `<x-dc>`/`<helmet>` wrapper flattened into a real `<head>`, since GitHub Pages has no Design Canvas runtime to do that. **There is no build step wiring these together — after editing `Main.dc.html`, manually re-apply the same two changes to `index.html` (or regenerate it) and commit both.**
+
+A Cloudflare Pages deployment also exists (`vh-architecture.pages.dev`, project name `vh-architecture` in the `Volkanbnztm@gmail.com` Cloudflare account) but is **not usable as the primary link**: `*.pages.dev` is unreachable from the founder's network in Turkey (confirmed on both WiFi and mobile data — likely an ISP/carrier-level block on that shared subdomain, not a deployment issue). See memory `vh-architecture-pages-dev-blocked` for the full finding. If/when a real custom domain is attached to that Cloudflare Pages project, it should work fine and could replace GitHub Pages as the primary link.
+
 ## Working with `Main.dc.html`
 
 - Treat it as hand-authored design output, not application source: self-contained page with inline `<style>` and CSS custom properties (colors, spacing) at the top of the `<style>` block, no build step, no bundler, no JS framework.
