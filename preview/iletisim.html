@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>İletişim — KAIRO Studio Önizleme</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:50;background:#1E3A4A;color:#FAF6EE;text-align:center;font-size:0.78rem;letter-spacing:0.04em;padding:8px 16px;">
+  Bu bir önizleme sürümüdür — canlı siteyi etkilemez. <a href="https://kairomimarlik.com" style="text-decoration:underline;color:#FAF6EE;">Canlı siteye dön →</a>
+</div>
+
+<nav class="nav nav--dark-fallback" id="nav">
+  <div class="nav-inner">
+    <a href="index.html"><img src="../images/kairo-mark-black.png" alt="KAIRO Studio" class="logo-img"></a>
+    <div class="nav-links">
+      <a href="projeler/index.html">Projeler</a>
+      <a href="studio.html">Stüdyo</a>
+      <a href="hizmetler.html">Hizmetler</a>
+      <a href="surec.html">Süreç</a>
+    </div>
+    <a href="iletisim.html" class="btn btn-primary nav-cta" aria-current="page">İletişim</a>
+  </div>
+</nav>
+
+<section class="section" style="padding-top: clamp(140px, 18vh, 190px);">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">İletişim</p>
+      <h1 class="section-title">Projenizi Konuşalım</h1>
+      <p class="lede" style="margin-top:14px;">İlk proje görüşmeleri randevu ile planlanmaktadır.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <div class="contact-block">
+          <p class="contact-label">Telefon</p>
+          <p class="contact-value"><a href="tel:+905446355862">+90 544 635 58 62</a></p>
+        </div>
+        <div class="contact-block">
+          <p class="contact-label">E-posta</p>
+          <p class="contact-value"><a href="mailto:info@kairomimarlik.com">info@kairomimarlik.com</a></p>
+        </div>
+        <div class="contact-block">
+          <p class="contact-label">Ofis</p>
+          <p class="contact-value">KAIRO Studio<br>Yalıkavak, Bodrum<br>Muğla</p>
+        </div>
+      </div>
+
+      <div>
+        <form id="lead-form" class="form-grid" autocomplete="on">
+          <input type="hidden" name="access_key" value="479e6b7b-2e15-464d-a344-973a8feb3b8b">
+          <input type="hidden" name="subject" value="KAIRO Studio — Yeni İletişim Talebi">
+          <input type="hidden" name="from_name" value="KAIRO Studio Web Sitesi (Önizleme)">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+          <div class="form-field full">
+            <label for="f-name">Ad Soyad</label>
+            <input id="f-name" type="text" name="name" placeholder="Adınız Soyadınız" required>
+          </div>
+          <div class="form-field full">
+            <label for="f-contact">Tercih Edilen İletişim Bilgisi</label>
+            <input id="f-contact" type="text" name="preferred_contact" placeholder="Telefon numarası veya e-posta" required>
+          </div>
+          <div class="form-field full">
+            <label for="f-message">Projeniz Hakkında Kısaca</label>
+            <textarea id="f-message" name="message" placeholder="Projenizi kısaca anlatın…" required></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="f-location">Konum (opsiyonel)</label>
+            <input id="f-location" type="text" name="location" placeholder="Örn. Yalıkavak, Akyarlar…">
+          </div>
+          <div class="form-field full">
+            <label for="f-details">Ek Bilgi (opsiyonel)</label>
+            <textarea id="f-details" name="details" placeholder="Eklemek istediğiniz başka bir şey var mı?"></textarea>
+          </div>
+          <div class="form-field full">
+            <button type="submit" class="btn btn-primary form-submit">Gönder</button>
+            <p id="lead-form-status" style="margin-top: 14px; font-size: 0.86rem; min-height: 1.2em;"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container-wide">
+    <div class="footer-top">
+      <a href="index.html"><img src="../images/kairo-logo-white.png" alt="KAIRO Studio — Architecture, Interior Design, Construction" class="footer-logo-img"></a>
+      <div class="footer-links">
+        <a href="projeler/index.html">Projeler</a>
+        <a href="studio.html">Stüdyo</a>
+        <a href="hizmetler.html">Hizmetler</a>
+        <a href="surec.html">Süreç</a>
+        <a href="iletisim.html">İletişim</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 KAIRO Studio. Tüm hakları saklıdır.</span>
+      <span>Yalıkavak, Bodrum — Türkiye</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/nav.js"></script>
+<script>
+document.addEventListener('submit', function (e) {
+  var form = (e.composedPath && e.composedPath()[0]) || e.target;
+  if (!form || form.id !== 'lead-form') return;
+  e.preventDefault();
+
+  var statusEl = form.querySelector('#lead-form-status');
+  var submitBtn = form.querySelector('.form-submit');
+
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Gönderiliyor…'; }
+  if (statusEl) { statusEl.textContent = ''; }
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: new FormData(form)
+  })
+    .then(function (res) { return res.json(); })
+    .then(function (json) {
+      if (json.success) {
+        form.reset();
+        if (statusEl) {
+          statusEl.textContent = 'Teşekkürler! Talebiniz alındı, en kısa sürede size dönüş yapacağız.';
+          statusEl.style.color = 'var(--accent)';
+        }
+      } else {
+        throw new Error(json.message || 'submit failed');
+      }
+    })
+    .catch(function () {
+      if (statusEl) {
+        statusEl.textContent = 'Bir şeyler ters gitti, lütfen tekrar deneyin ya da doğrudan arayın.';
+        statusEl.style.color = '#a33';
+      }
+    })
+    .finally(function () {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Gönder'; }
+    });
+});
+</script>
+</body>
+</html>
