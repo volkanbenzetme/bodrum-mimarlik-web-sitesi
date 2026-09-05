@@ -99,9 +99,8 @@
       padding: 20px clamp(24px, 5vw, 64px);
       max-width: 1180px; margin: 0 auto;
     }
-    .logo { display: flex; flex-direction: column; line-height: 1; }
-    .logo-mark { font-family: 'Marcellus', serif; font-size: 1.5rem; letter-spacing: 0.14em; }
-    .logo-sub { font-size: 0.6rem; letter-spacing: 0.32em; color: var(--ink-soft); margin-top: 5px; }
+    .logo { display: flex; align-items: center; }
+    .logo-img { height: 40px; width: auto; display: block; }
     .nav-links { display: flex; align-items: center; gap: clamp(20px, 3vw, 40px); }
     .nav-links a { font-size: 0.86rem; letter-spacing: 0.04em; }
     .nav-cta { flex-shrink: 0; }
@@ -124,6 +123,10 @@
     .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
     .hero .btn-ghost { color: var(--stone-50); border-color: rgba(250,246,238,0.4); }
     .hero .btn-ghost:hover { border-color: var(--stone-50); color: var(--stone-50); opacity: 0.86; }
+    .hero .btn-primary, .cta-band .btn-primary {
+      background: var(--stone-50); color: var(--ink); border-color: var(--stone-50);
+    }
+    .hero .btn-primary:hover, .cta-band .btn-primary:hover { opacity: 0.88; color: var(--ink); }
     @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.09); } }
     @media (prefers-reduced-motion: reduce) { .hero-media img { animation: none; } }
 
@@ -137,7 +140,7 @@
     }
     .pull-quote q { font-family: 'Marcellus', serif; font-size: clamp(1.3rem, 2vw, 1.6rem); line-height: 1.4; font-style: normal; quotes: none; }
     .pull-quote cite { display: block; margin-top: 16px; font-size: 0.82rem; letter-spacing: 0.05em; color: var(--ink-soft); font-style: normal; }
-    .felsefe-figure { position: relative; height: 100%; }
+    .felsefe-figure { position: relative; }
     .felsefe-figure::before {
       content: ""; position: absolute; top: -18px; left: -18px; right: 18px; bottom: 18px;
       border: 1px solid var(--accent); z-index: 0;
@@ -231,8 +234,7 @@
     /* Footer */
     .footer { background: var(--footer); color: var(--stone-100); padding: 64px 0 30px; }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; padding-bottom: 44px; border-bottom: 1px solid rgba(250,246,238,0.14); }
-    .footer .logo-mark { color: var(--stone-50); }
-    .footer .logo-sub { color: rgba(250,246,238,0.5); }
+    .footer-logo-img { height: 108px; width: auto; display: block; }
     .footer-links { display: flex; gap: clamp(24px, 4vw, 56px); flex-wrap: wrap; }
     .footer-links a { font-size: 0.86rem; color: rgba(250,246,238,0.78); }
     .footer-links a:hover { color: var(--stone-50); }
@@ -267,8 +269,7 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="#" class="logo">
-        <span class="logo-mark">KAIRO</span>
-        <span class="logo-sub">STUDIO</span>
+        <img src="images/kairo-mark-black.png" alt="KAIRO Studio" class="logo-img">
       </a>
       <div class="nav-links">
         <a href="#felsefe">Felsefe</a>
@@ -642,8 +643,7 @@
     <div class="container">
       <div class="footer-top">
         <a href="#" class="logo">
-          <span class="logo-mark">KAIRO</span>
-          <span class="logo-sub">STUDIO</span>
+          <img src="images/kairo-logo-white.png" alt="KAIRO Studio — Architecture, Interior Design, Construction" class="footer-logo-img">
         </a>
         <div class="footer-links">
           <a href="#felsefe">Felsefe</a>
