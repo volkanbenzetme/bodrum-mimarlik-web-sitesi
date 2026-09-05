@@ -196,26 +196,22 @@
 
     /* CTA band */
     .cta-band { position: relative; min-height: 72vh; display: flex; align-items: center; overflow: hidden; }
-    .cta-band-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-    .cta-band-media-bg {
-      width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%;
-      filter: blur(36px) saturate(1.1) brightness(0.88); transform: scale(1.15);
-    }
-    .cta-band-media-fg {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: contain; object-position: left center;
-    }
+    .cta-band-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; display: flex; width: 100%; height: 100%; }
+    .cta-band-media img { width: 50%; height: 100%; object-fit: cover; }
+    .cta-band-media img:first-child { object-position: 30% center; }
+    .cta-band-media img:last-child { object-position: 50% 30%; }
     .cta-band-scrim {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(260deg, rgba(24,23,20,0.74) 0%, rgba(24,23,20,0.5) 32%, rgba(24,23,20,0.18) 58%, rgba(24,23,20,0.06) 76%),
-                  linear-gradient(0deg, rgba(24,23,20,0.32), rgba(24,23,20,0) 45%);
+      background: linear-gradient(0deg, rgba(24,23,20,0.55), rgba(24,23,20,0.32) 55%, rgba(24,23,20,0.5)),
+                  rgba(24,23,20,0.22);
     }
-    .cta-band-content { position: relative; z-index: 2; max-width: 620px; margin-left: auto; text-align: right; }
-    .cta-band-content .eyebrow { justify-content: flex-end; }
+    .cta-band-content { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; text-align: center; }
+    .cta-band-content .eyebrow { justify-content: center; }
     .cta-band .eyebrow { color: var(--stone-100); }
     .cta-band .eyebrow::before { background: var(--stone-100); }
     .cta-band .section-title { color: var(--stone-50); margin-bottom: 22px; text-wrap: balance; }
-    .cta-band-text { color: rgba(250,246,238,0.82); font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.85; font-weight: 300; max-width: 480px; margin-bottom: 36px; }
+    .cta-band-text { color: rgba(250,246,238,0.9); font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.85; font-weight: 300; max-width: 520px; margin: 0 auto 36px; }
+    @media (max-width: 780px) { .cta-band-media { flex-direction: column; } .cta-band-media img { width: 100%; height: 50%; } }
 
     /* Testimonials */
     .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 3vw, 44px); }
@@ -541,8 +537,8 @@
 
   <section class="cta-band">
     <div class="cta-band-media">
-      <img class="cta-band-media-bg" src="images/cta-band-entrance.jpg" alt="" loading="lazy">
-      <img class="cta-band-media-fg" src="images/cta-band-entrance.jpg" alt="" loading="lazy">
+      <img src="images/cta-band-entrance.jpg" alt="" loading="lazy">
+      <img src="images/cta-band-sea-view.jpg" alt="" loading="lazy">
     </div>
     <div class="cta-band-scrim"></div>
     <div class="container">
