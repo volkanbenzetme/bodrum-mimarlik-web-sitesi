@@ -104,15 +104,12 @@
       padding: 20px clamp(24px, 5vw, 64px);
       max-width: 1180px; margin: 0 auto;
     }
-    .logo { display: flex; align-items: center; }
-    .logo-img { height: 56px; width: auto; display: block; }
-    .logo-img-dark { display: none; }
-    .nav--solid .logo-img-light { display: none; }
-    .nav--solid .logo-img-dark { display: block; }
     .nav-links { display: flex; align-items: center; gap: clamp(20px, 3vw, 40px); }
     .nav-links a { font-size: 0.86rem; letter-spacing: 0.04em; color: var(--stone-50); transition: color 0.35s ease; }
     .nav--solid .nav-links a { color: var(--ink); }
     .nav-cta { flex-shrink: 0; }
+    .nav .btn-primary { background: var(--stone-50); color: var(--ink); border-color: var(--stone-50); }
+    .nav .btn-primary:hover { opacity: 0.88; color: var(--ink); }
 
     /* Hero */
     .hero { position: relative; overflow: hidden; min-height: clamp(620px, 92vh, 880px); display: flex; flex-direction: column; }
@@ -137,6 +134,12 @@
     }
     .hero .btn-primary:hover, .cta-band .btn-primary:hover { opacity: 0.88; color: var(--ink); }
     @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.09); } }
+    .hero-brandmark {
+      position: absolute; z-index: 2; right: clamp(24px, 6vw, 80px); top: 50%; transform: translateY(-50%);
+      width: clamp(160px, 20vw, 260px); opacity: 0.94;
+    }
+    .hero-brandmark img { width: 100%; height: auto; display: block; }
+    @media (max-width: 900px) { .hero-brandmark { display: none; } }
     @media (prefers-reduced-motion: reduce) { .hero-media img { animation: none; } }
 
     /* Philosophy */
@@ -272,10 +275,6 @@
 
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#" class="logo">
-        <img src="images/kairo-mark-white.png" alt="KAIRO Studio" class="logo-img logo-img-light">
-        <img src="images/kairo-mark-black.png" alt="KAIRO Studio" class="logo-img logo-img-dark">
-      </a>
       <div class="nav-links">
         <a href="#felsefe">Felsefe</a>
         <a href="#hizmetler">Hizmetler</a>
@@ -292,6 +291,9 @@
       <img src="images/no19-dream-residence.jpg" alt="" loading="eager">
     </div>
     <div class="hero-scrim"></div>
+    <div class="hero-brandmark">
+      <img src="images/kairo-logo-white.png" alt="KAIRO Studio — Architecture, Interior Design, Construction">
+    </div>
     <div class="hero-content">
       <div class="container">
         <p class="eyebrow">Yalıkavak · Bodrum</p>
