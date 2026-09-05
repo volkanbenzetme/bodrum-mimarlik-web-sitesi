@@ -199,8 +199,15 @@
 
     /* CTA band */
     .cta-band { position: relative; min-height: 72vh; display: flex; align-items: center; overflow: hidden; }
-    .cta-band-media { position: absolute; inset: 0; z-index: 0; }
-    .cta-band-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+    .cta-band-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .cta-band-media-bg {
+      width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%;
+      filter: blur(36px) saturate(1.1) brightness(0.88); transform: scale(1.15);
+    }
+    .cta-band-media-fg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: contain; object-position: right center;
+    }
     .cta-band-scrim {
       position: absolute; inset: 0; z-index: 1;
       background: linear-gradient(100deg, rgba(24,23,20,0.74) 0%, rgba(24,23,20,0.5) 32%, rgba(24,23,20,0.18) 58%, rgba(24,23,20,0.06) 76%),
@@ -535,7 +542,8 @@
 
   <section class="cta-band">
     <div class="cta-band-media">
-      <img src="images/cta-band-sea-view.jpg" alt="" loading="lazy">
+      <img class="cta-band-media-bg" src="images/cta-band-sea-view.jpg" alt="" loading="lazy">
+      <img class="cta-band-media-fg" src="images/cta-band-sea-view.jpg" alt="" loading="lazy">
     </div>
     <div class="cta-band-scrim"></div>
     <div class="container">
