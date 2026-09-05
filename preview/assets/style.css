@@ -115,6 +115,18 @@ img, svg { display: block; max-width: 100%; }
 }
 .hero-dot.is-active { background: var(--stone-50); transform: scale(1.35); }
 .hero-dot:hover { background: rgba(250,246,238,0.7); }
+
+.hero-slide .photo-hero-media img { transform: scale(1); }
+.hero-slide.is-active .photo-hero-media img {
+  animation: heroSlideZoom 8s ease-out forwards;
+}
+@keyframes heroSlideZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.09); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide.is-active .photo-hero-media img { animation: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .hero-slide { transition: none; }
 }
