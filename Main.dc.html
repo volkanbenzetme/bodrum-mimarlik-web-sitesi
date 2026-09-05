@@ -200,8 +200,12 @@
     /* CTA band */
     .cta-band { position: relative; min-height: 72vh; display: flex; align-items: center; overflow: hidden; }
     .cta-band-media { position: absolute; inset: 0; z-index: 0; }
-    .cta-band-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
-    .cta-band-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(24,23,20,0.82), rgba(24,23,20,0.42) 55%, rgba(24,23,20,0.5)); }
+    .cta-band-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
+    .cta-band-scrim {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(100deg, rgba(24,23,20,0.74) 0%, rgba(24,23,20,0.5) 32%, rgba(24,23,20,0.18) 58%, rgba(24,23,20,0.06) 76%),
+                  linear-gradient(0deg, rgba(24,23,20,0.32), rgba(24,23,20,0) 45%);
+    }
     .cta-band-content { position: relative; z-index: 2; max-width: 620px; }
     .cta-band .eyebrow { color: var(--stone-100); }
     .cta-band .eyebrow::before { background: var(--stone-100); }
@@ -531,7 +535,7 @@
 
   <section class="cta-band">
     <div class="cta-band-media">
-      <img src="images/mercankoy-e4.jpg" alt="" loading="lazy">
+      <img src="images/cta-band-sea-view.jpg" alt="" loading="lazy">
     </div>
     <div class="cta-band-scrim"></div>
     <div class="container">
