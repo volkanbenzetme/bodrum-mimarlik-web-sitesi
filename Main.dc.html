@@ -23,6 +23,9 @@
       --line: rgba(38,36,32,0.14);
       --footer: #1B2A2E;
       --accent: #1E3A4A;
+      --shadow-sm: 0 1px 2px rgba(38,36,32,0.05), 0 6px 16px -10px rgba(38,36,32,0.18);
+      --shadow-md: 0 10px 24px -8px rgba(38,36,32,0.22), 0 2px 6px rgba(38,36,32,0.08);
+      --shadow-lg: 0 30px 60px -20px rgba(27,26,23,0.35);
       font-family: 'Jost', 'Segoe UI', system-ui, sans-serif;
       color: var(--ink);
       background: var(--stone-50);
@@ -107,14 +110,25 @@
     .nav-cta { flex-shrink: 0; }
 
     /* Hero */
-    .hero { position: relative; overflow: hidden; min-height: clamp(600px, 88vh, 820px); display: flex; flex-direction: column; }
+    .hero { position: relative; overflow: hidden; min-height: clamp(620px, 92vh, 880px); display: flex; flex-direction: column; }
+    .hero-media { position: absolute; inset: 0; z-index: 0; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; animation: heroZoom 26s ease-in-out infinite alternate; }
+    .hero-scrim {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(105deg, rgba(24,23,20,0.86) 0%, rgba(24,23,20,0.62) 34%, rgba(24,23,20,0.22) 60%, rgba(24,23,20,0.04) 78%),
+                  linear-gradient(0deg, rgba(24,23,20,0.35), rgba(24,23,20,0) 40%);
+    }
     .hero-content { position: relative; z-index: 2; padding-top: clamp(90px, 14vh, 150px); }
     .hero-content .container { max-width: 620px; }
-    .hero h1 { font-size: clamp(2.6rem, 5.4vw, 4.4rem); line-height: 1.08; margin: 22px 0 26px; }
-    .hero-sub { font-size: clamp(1rem, 1.3vw, 1.15rem); color: var(--ink-soft); line-height: 1.75; font-weight: 300; max-width: 480px; margin-bottom: 40px; }
+    .hero .eyebrow { color: var(--stone-100); }
+    .hero .eyebrow::before { background: var(--stone-100); }
+    .hero h1 { font-size: clamp(2.6rem, 5.4vw, 4.4rem); line-height: 1.08; margin: 22px 0 26px; color: var(--stone-50); text-wrap: balance; }
+    .hero-sub { font-size: clamp(1rem, 1.3vw, 1.15rem); color: rgba(250,246,238,0.82); line-height: 1.75; font-weight: 300; max-width: 480px; margin-bottom: 40px; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
-    .hero-illustration { position: absolute; left: 0; right: 0; bottom: 0; height: 60%; width: 100%; }
-    .hero-illustration svg { width: 100%; height: 100%; }
+    .hero .btn-ghost { color: var(--stone-50); border-color: rgba(250,246,238,0.4); }
+    .hero .btn-ghost:hover { border-color: var(--stone-50); color: var(--stone-50); opacity: 0.86; }
+    @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.09); } }
+    @media (prefers-reduced-motion: reduce) { .hero-media img { animation: none; } }
 
     /* Philosophy */
     .felsefe-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px, 6vw, 90px); align-items: start; }
@@ -126,13 +140,21 @@
     }
     .pull-quote q { font-family: 'Marcellus', serif; font-size: clamp(1.3rem, 2vw, 1.6rem); line-height: 1.4; font-style: normal; quotes: none; }
     .pull-quote cite { display: block; margin-top: 16px; font-size: 0.82rem; letter-spacing: 0.05em; color: var(--ink-soft); font-style: normal; }
-    .felsefe-figure { background: var(--stone-100); border: 1px solid var(--line); padding: 36px; height: 100%; }
-    .felsefe-figure svg { width: 100%; height: auto; }
+    .felsefe-figure { position: relative; height: 100%; }
+    .felsefe-figure::before {
+      content: ""; position: absolute; top: -18px; left: -18px; right: 18px; bottom: 18px;
+      border: 1px solid var(--accent); z-index: 0;
+    }
+    .felsefe-figure-frame {
+      position: relative; z-index: 1; aspect-ratio: 4 / 4.6; overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .felsefe-figure-frame img { width: 100%; height: 100%; object-fit: cover; }
 
     /* Services */
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-    .service-card { background: var(--stone-50); padding: 42px 34px; display: flex; flex-direction: column; gap: 20px; transition: background 0.2s ease; }
-    .service-card:hover { background: var(--stone-100); }
+    .service-card { background: var(--stone-50); padding: 42px 34px; display: flex; flex-direction: column; gap: 20px; position: relative; transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease; }
+    .service-card:hover { background: var(--stone-100); box-shadow: var(--shadow-md); transform: translateY(-3px); z-index: 1; }
     .service-icon { width: 34px; height: 34px; color: var(--accent); }
     .service-icon svg { width: 100%; height: 100%; }
     .service-name { font-size: 1.2rem; }
@@ -142,14 +164,15 @@
     .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(28px, 3vw, 44px); }
     .project-card { display: flex; flex-direction: column; }
     .project-sketch {
-      background:
-        radial-gradient(var(--stone-200) 1px, transparent 1px) 0 0/16px 16px,
-        var(--stone-100);
-      border: 1px solid var(--line);
+      background: var(--stone-100);
       aspect-ratio: 4 / 3;
       overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.35s ease;
     }
-    .project-sketch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-sketch img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+    .project-card:hover .project-sketch { box-shadow: var(--shadow-md); }
+    .project-card:hover .project-sketch img { transform: scale(1.07); }
     .project-meta { padding-top: 20px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
     .project-name { font-size: 1.3rem; margin-bottom: 6px; }
     .project-loc { font-size: 0.82rem; color: var(--ink-soft); letter-spacing: 0.04em; }
@@ -163,6 +186,17 @@
     .process-num { font-family: 'Marcellus', serif; font-size: 1.6rem; color: var(--accent); margin-bottom: 18px; }
     .process-title { font-size: 1.05rem; margin-bottom: 12px; }
     .process-desc { font-size: 0.88rem; line-height: 1.7; color: var(--ink-soft); font-weight: 300; }
+
+    /* CTA band */
+    .cta-band { position: relative; min-height: 62vh; display: flex; align-items: center; overflow: hidden; }
+    .cta-band-media { position: absolute; inset: 0; z-index: 0; }
+    .cta-band-media img { width: 100%; height: 100%; object-fit: cover; }
+    .cta-band-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(24,23,20,0.82), rgba(24,23,20,0.42) 55%, rgba(24,23,20,0.5)); }
+    .cta-band-content { position: relative; z-index: 2; max-width: 620px; }
+    .cta-band .eyebrow { color: var(--stone-100); }
+    .cta-band .eyebrow::before { background: var(--stone-100); }
+    .cta-band .section-title { color: var(--stone-50); margin-bottom: 22px; text-wrap: balance; }
+    .cta-band-text { color: rgba(250,246,238,0.82); font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.85; font-weight: 300; max-width: 480px; margin-bottom: 36px; }
 
     /* Testimonials */
     .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 3vw, 44px); }
@@ -250,6 +284,10 @@
   </nav>
 
   <header class="hero">
+    <div class="hero-media">
+      <img src="images/no19-dream-residence.jpg" alt="" loading="eager">
+    </div>
+    <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="container">
         <p class="eyebrow">Yalıkavak · Bodrum</p>
@@ -260,43 +298,6 @@
           <a href="#projeler" class="btn btn-ghost">Projelerimizi Görün</a>
         </div>
       </div>
-    </div>
-    <div class="hero-illustration">
-      <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#FAF3E6"/>
-            <stop offset="100%" stop-color="#EDE0CC"/>
-          </linearGradient>
-          <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#8FB4C2"/>
-            <stop offset="100%" stop-color="#3E6A80"/>
-          </linearGradient>
-        </defs>
-        <rect x="0" y="0" width="1200" height="320" fill="url(#skyGrad)"/>
-        <circle cx="970" cy="110" r="40" fill="#F1D8B0" opacity="0.85"/>
-        <rect x="0" y="320" width="1200" height="280" fill="url(#seaGrad)"/>
-        <path d="M0 430 C 160 390, 340 400, 460 360 L 460 600 L 0 600 Z" fill="#DCCEB0" opacity="0.55"/>
-        <polygon points="255,388 265,340 275,388" fill="#5C6B4C"/>
-        <polygon points="255,400 265,360 275,400" fill="#5C6B4C"/>
-        <polygon points="253,414 265,378 277,414" fill="#4E5C40"/>
-        <rect x="262" y="414" width="6" height="14" fill="#4A4028"/>
-        <polygon points="795,382 805,344 815,382" fill="#5C6B4C"/>
-        <polygon points="793,396 805,358 817,396" fill="#4E5C40"/>
-        <rect x="802" y="396" width="6" height="12" fill="#4A4028"/>
-        <rect x="300" y="330" width="290" height="96" fill="#FBF7EE" stroke="#D8CBAE" stroke-width="1"/>
-        <rect x="560" y="374" width="200" height="52" fill="#F1E4C9" stroke="#D8CBAE" stroke-width="1"/>
-        <rect x="340" y="356" width="46" height="64" fill="#EADFC6"/>
-        <path d="M340 356 a23 23 0 0 1 46 0" fill="#EADFC6"/>
-        <rect x="410" y="352" width="18" height="26" fill="#264256" opacity="0.85"/>
-        <rect x="442" y="352" width="18" height="26" fill="#264256" opacity="0.85"/>
-        <rect x="474" y="352" width="18" height="26" fill="#264256" opacity="0.85"/>
-        <rect x="595" y="390" width="30" height="30" fill="#264256" opacity="0.7"/>
-        <rect x="260" y="424" width="580" height="16" fill="#FBF7EE" stroke="#D8CBAE" stroke-width="1"/>
-        <rect x="300" y="440" width="290" height="12" fill="#6FA0AF"/>
-        <rect x="300" y="440" width="290" height="2" fill="#CDE6EA" opacity="0.8"/>
-        <rect x="260" y="452" width="580" height="3" fill="#1E3A4A" opacity="0.12"/>
-      </svg>
     </div>
   </header>
 
@@ -317,25 +318,9 @@
           </div>
         </div>
         <div class="felsefe-figure">
-          <svg viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#8A8270" stroke-width="1">
-            <rect x="20" y="20" width="360" height="420" fill="none" stroke="#D8CBAE"/>
-            <line x1="20" y1="260" x2="380" y2="260"/>
-            <rect x="60" y="120" width="280" height="140" fill="#F2EADA"/>
-            <rect x="60" y="260" width="280" height="60" fill="#E4D8C0"/>
-            <path d="M120 120 a30 30 0 0 1 60 0" />
-            <line x1="120" y1="120" x2="120" y2="180"/>
-            <line x1="180" y1="120" x2="180" y2="180"/>
-            <line x1="220" y1="150" x2="250" y2="150"/>
-            <line x1="220" y1="170" x2="250" y2="170"/>
-            <line x1="280" y1="150" x2="310" y2="150"/>
-            <line x1="280" y1="170" x2="310" y2="170"/>
-            <line x1="60" y1="320" x2="340" y2="320"/>
-            <line x1="90" y1="320" x2="90" y2="400"/>
-            <line x1="150" y1="320" x2="150" y2="400"/>
-            <line x1="250" y1="320" x2="250" y2="400"/>
-            <line x1="310" y1="320" x2="310" y2="400"/>
-            <line x1="60" y1="400" x2="340" y2="400"/>
-          </svg>
+          <div class="felsefe-figure-frame">
+            <img src="images/d16-renovasyon.jpg" alt="KAIRO iç mekan uygulaması, deniz manzaralı yaşam alanı">
+          </div>
         </div>
       </div>
     </div>
@@ -532,6 +517,21 @@
           <h3 class="process-title">Eksiksiz Teslim &amp; Takip</h3>
           <p class="process-desc">Son kontroller (punch list) yapılır, teslim kayıtları hazırlanır ve süreç sonrası destek sağlanır.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-band-media">
+      <img src="images/mercankoy-e4.jpg" alt="" loading="lazy">
+    </div>
+    <div class="cta-band-scrim"></div>
+    <div class="container">
+      <div class="cta-band-content">
+        <p class="eyebrow">Zamanı Durduran Detaylar</p>
+        <h2 class="section-title">Işık, Rüzgâr ve Malzemenin<br>Yavaşlattığı Bir Yaşam</h2>
+        <p class="cta-band-text">Açık pencerelerden giren Ege meltemi; doğal taş yüzeyler, gün ışığı ve hafif keten dokularla dengeli bir iç mekân atmosferi oluşturur. Gürültü geride kalır.</p>
+        <a href="#iletisim" class="btn btn-primary">Projenizi Konuşalım</a>
       </div>
     </div>
   </section>
