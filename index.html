@@ -89,10 +89,15 @@
 
     /* Nav */
     .nav {
-      position: sticky; top: 0; z-index: 40;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+    }
+    .nav.nav--solid {
       background: rgba(250, 246, 238, 0.92);
       backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--line);
+      border-bottom-color: var(--line);
     }
     .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
@@ -100,9 +105,13 @@
       max-width: 1180px; margin: 0 auto;
     }
     .logo { display: flex; align-items: center; }
-    .logo-img { height: 40px; width: auto; display: block; }
+    .logo-img { height: 56px; width: auto; display: block; }
+    .logo-img-dark { display: none; }
+    .nav--solid .logo-img-light { display: none; }
+    .nav--solid .logo-img-dark { display: block; }
     .nav-links { display: flex; align-items: center; gap: clamp(20px, 3vw, 40px); }
-    .nav-links a { font-size: 0.86rem; letter-spacing: 0.04em; }
+    .nav-links a { font-size: 0.86rem; letter-spacing: 0.04em; color: var(--stone-50); transition: color 0.35s ease; }
+    .nav--solid .nav-links a { color: var(--ink); }
     .nav-cta { flex-shrink: 0; }
 
     /* Hero */
@@ -140,13 +149,8 @@
     }
     .pull-quote q { font-family: 'Marcellus', serif; font-size: clamp(1.3rem, 2vw, 1.6rem); line-height: 1.4; font-style: normal; quotes: none; }
     .pull-quote cite { display: block; margin-top: 16px; font-size: 0.82rem; letter-spacing: 0.05em; color: var(--ink-soft); font-style: normal; }
-    .felsefe-figure { position: relative; }
-    .felsefe-figure::before {
-      content: ""; position: absolute; top: -18px; left: -18px; right: 18px; bottom: 18px;
-      border: 1px solid var(--accent); z-index: 0;
-    }
     .felsefe-figure-frame {
-      position: relative; z-index: 1; aspect-ratio: 4 / 4.6; overflow: hidden;
+      aspect-ratio: 4 / 4.6; overflow: hidden;
       box-shadow: var(--shadow-lg);
     }
     .felsefe-figure-frame img { width: 100%; height: 100%; object-fit: cover; }
@@ -188,9 +192,9 @@
     .process-desc { font-size: 0.88rem; line-height: 1.7; color: var(--ink-soft); font-weight: 300; }
 
     /* CTA band */
-    .cta-band { position: relative; min-height: 62vh; display: flex; align-items: center; overflow: hidden; }
+    .cta-band { position: relative; min-height: 72vh; display: flex; align-items: center; overflow: hidden; }
     .cta-band-media { position: absolute; inset: 0; z-index: 0; }
-    .cta-band-media img { width: 100%; height: 100%; object-fit: cover; }
+    .cta-band-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
     .cta-band-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(24,23,20,0.82), rgba(24,23,20,0.42) 55%, rgba(24,23,20,0.5)); }
     .cta-band-content { position: relative; z-index: 2; max-width: 620px; }
     .cta-band .eyebrow { color: var(--stone-100); }
@@ -269,7 +273,8 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="#" class="logo">
-        <img src="images/kairo-mark-black.png" alt="KAIRO Studio" class="logo-img">
+        <img src="images/kairo-mark-white.png" alt="KAIRO Studio" class="logo-img logo-img-light">
+        <img src="images/kairo-mark-black.png" alt="KAIRO Studio" class="logo-img logo-img-dark">
       </a>
       <div class="nav-links">
         <a href="#felsefe">Felsefe</a>
@@ -718,6 +723,18 @@ document.addEventListener('submit', function (e) {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Gönder'; }
     });
 });
+</script>
+<script>
+(function () {
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  function updateNav() {
+    if (window.scrollY > 40) { nav.classList.add('nav--solid'); }
+    else { nav.classList.remove('nav--solid'); }
+  }
+  updateNav();
+  document.addEventListener('scroll', updateNav, { passive: true });
+})();
 </script>
 </body>
 </html>
