@@ -8,7 +8,6 @@
   var current = 0;
   var intervalMs = 6500;
   var timer = null;
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function show(index) {
     slides[current].classList.remove('is-active');
@@ -25,7 +24,6 @@
   }
 
   function start() {
-    if (reduceMotion) return;
     stop();
     timer = setInterval(next, intervalMs);
   }
