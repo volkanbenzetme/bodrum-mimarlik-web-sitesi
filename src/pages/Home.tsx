@@ -8,7 +8,7 @@ import HeroCarousel from "../components/HeroCarousel";
 import ProjectCard, { projectCardVariants } from "../components/ProjectCard";
 import ServiceCard, { serviceCardVariants } from "../components/ServiceCard";
 import RiskBand from "../components/RiskBand";
-import { homeFeaturedProjects } from "../data/projects";
+import { projects } from "../data/projects";
 import { services } from "../data/services";
 
 const gridVariants: Variants = {
@@ -91,8 +91,8 @@ export default function Home() {
             viewport={{ once: true, amount: 0.4 }}
             variants={fadeUp}
           >
-            <p className="eyebrow">Seçili Projeler</p>
-            <h2 className="section-title">Tamamlanmış Uygulamalar</h2>
+            <p className="eyebrow">Portfolyo</p>
+            <h2 className="section-title">Öne Çıkan Projeler</h2>
           </motion.div>
           <motion.div
             className="project-grid"
@@ -101,7 +101,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            {homeFeaturedProjects.map((project) => (
+            {projects.map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}
           </motion.div>

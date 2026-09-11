@@ -48,8 +48,6 @@ export interface Project {
   heroOrder?: number;
   /** Hero carousel'in üstündeki kısa etiket. */
   heroTag?: string;
-  /** Ana sayfanın "Tamamlanmış Uygulamalar" ızgarasında öne çıkarılsın mı. */
-  homeFeatured?: boolean;
 }
 
 export const projects: Project[] = [
@@ -96,7 +94,6 @@ export const projects: Project[] = [
       "Referans/görüşme talebi için ilk keşif görüşmesi sonrasında iletişime geçilebilir.",
     heroOrder: 2,
     heroTag: "Akyarlar, Bodrum",
-    homeFeatured: true,
   },
   {
     slug: "mercankoy-e4",
@@ -119,7 +116,6 @@ export const projects: Project[] = [
       "Referans/görüşme talebi için ilk keşif görüşmesi sonrasında iletişime geçilebilir.",
     heroOrder: 3,
     heroTag: "Yalıkavak, Bodrum",
-    homeFeatured: true,
   },
   {
     slug: "d16-renovasyon",
@@ -201,5 +197,3 @@ export function getProjectBySlug(slug: string): Project | undefined {
 export const heroProjects = projects
   .filter((p): p is Project & { heroOrder: number } => p.heroOrder != null)
   .sort((a, b) => a.heroOrder - b.heroOrder);
-
-export const homeFeaturedProjects = projects.filter((p) => p.homeFeatured);
