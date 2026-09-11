@@ -114,6 +114,8 @@ export default function HeroCarousel() {
         </motion.div>
       </AnimatePresence>
 
+      <img src="/images/kairo-logo-white.png" alt="KAIRO Studio" className="hero-logo-mark" />
+
       <div className="hero-carousel-dots">
         {heroProjects.map((p, i) => (
           <button

@@ -8,6 +8,7 @@ import HeroCarousel from "../components/HeroCarousel";
 import ProjectCard, { projectCardVariants } from "../components/ProjectCard";
 import ServiceCard, { serviceCardVariants } from "../components/ServiceCard";
 import RiskBand from "../components/RiskBand";
+import CtaBand from "../components/CtaBand";
 import { projects } from "../data/projects";
 import { services } from "../data/services";
 
@@ -145,6 +146,8 @@ export default function Home() {
       </section>
 
       <RiskBand text="Tasarım ve uygulamayı birlikte düşünür, Bodrum koşullarına uygun çözüm geliştirir, süreci planlı ve kontrollü yürütür; detaydan teslim aşamasına kadar takip ederiz. Keşiften teslime, doğru müdahale ve doğru uygulama ile kalıcı sonuçlar üretiyoruz." />
+
+      <CtaBand />
 
       <section className="section section-alt" id="iletisim-ozet">
         <div className="container">
