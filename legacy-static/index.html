@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KAIRO Studio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #23211D; }
+    .page {
+      --stone-50: #FAF6EE;
+      --stone-100: #F2EADA;
+      --stone-200: #E4D8C0;
+      --ink: #262420;
+      --ink-soft: #6B6558;
+      --sea-deep: #1E3A4A;
+      --sea-soft: #4C7A93;
+      --sea-mist: #C9DCE2;
+      --line: rgba(38,36,32,0.14);
+      --footer: #1B2A2E;
+      --accent: #1E3A4A;
+      --shadow-sm: 0 1px 2px rgba(38,36,32,0.05), 0 6px 16px -10px rgba(38,36,32,0.18);
+      --shadow-md: 0 10px 24px -8px rgba(38,36,32,0.22), 0 2px 6px rgba(38,36,32,0.08);
+      --shadow-lg: 0 30px 60px -20px rgba(27,26,23,0.35);
+      font-family: 'Jost', 'Segoe UI', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--stone-50);
+      width: 100%;
+    }
+    .page h1, .page h2, .page h3, .page .display {
+      font-family: 'Marcellus', 'Times New Roman', serif;
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 0.01em;
+    }
+    .page p { margin: 0; }
+    .page a { color: inherit; text-decoration: none; }
+    .page a:hover { color: var(--accent); }
+    .page ul { list-style: none; margin: 0; padding: 0; }
+    .page img, .page svg { display: block; }
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 clamp(24px, 5vw, 64px);
+    }
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin: 0 0 18px 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+    .section { padding: clamp(72px, 9vw, 128px) 0; }
+    .section-head { max-width: 640px; margin-bottom: clamp(48px, 6vw, 76px); }
+    .section-title { font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.15; }
+    .section-alt { background: var(--stone-100); }
+    .lede { font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.85; color: var(--ink-soft); font-weight: 300; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 30px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.86rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .btn-primary { background: var(--accent); color: var(--stone-50); border: 1px solid var(--accent); }
+    .btn-primary:hover { opacity: 0.86; color: var(--stone-50); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+    }
+    .nav.nav--solid {
+      background: rgba(250, 246, 238, 0.92);
+      backdrop-filter: blur(6px);
+      border-bottom-color: var(--line);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px clamp(24px, 5vw, 64px);
+      max-width: 1180px; margin: 0 auto;
+    }
+    .nav-links { display: flex; align-items: center; gap: clamp(20px, 3vw, 40px); }
+    .nav-links a { font-size: 0.86rem; letter-spacing: 0.04em; color: var(--stone-50); transition: color 0.35s ease; }
+    .nav--solid .nav-links a { color: var(--ink); }
+    .nav-cta { flex-shrink: 0; }
+    .nav .btn-primary { background: var(--stone-50); color: var(--ink); border-color: var(--stone-50); }
+    .nav .btn-primary:hover { opacity: 0.88; color: var(--ink); }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; min-height: clamp(620px, 92vh, 880px); display: flex; flex-direction: column; }
+    .hero-media { position: absolute; inset: 0; z-index: 0; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; animation: heroZoom 26s ease-in-out infinite alternate; }
+    .hero-scrim {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(105deg, rgba(24,23,20,0.86) 0%, rgba(24,23,20,0.62) 34%, rgba(24,23,20,0.22) 60%, rgba(24,23,20,0.04) 78%),
+                  linear-gradient(0deg, rgba(24,23,20,0.35), rgba(24,23,20,0) 40%);
+    }
+    .hero-content { position: relative; z-index: 2; padding-top: clamp(90px, 14vh, 150px); }
+    .hero-content .container { max-width: 620px; }
+    .hero .eyebrow { color: var(--stone-100); }
+    .hero .eyebrow::before { background: var(--stone-100); }
+    .hero h1 { font-size: clamp(2.6rem, 5.4vw, 4.4rem); line-height: 1.08; margin: 22px 0 26px; color: var(--stone-50); text-wrap: balance; }
+    .hero-sub { font-size: clamp(1rem, 1.3vw, 1.15rem); color: rgba(250,246,238,0.82); line-height: 1.75; font-weight: 300; max-width: 480px; margin-bottom: 40px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+    .hero .btn-ghost { color: var(--stone-50); border-color: rgba(250,246,238,0.4); }
+    .hero .btn-ghost:hover { border-color: var(--stone-50); color: var(--stone-50); opacity: 0.86; }
+    .hero .btn-primary, .cta-band .btn-primary {
+      background: var(--stone-50); color: var(--ink); border-color: var(--stone-50);
+    }
+    .hero .btn-primary:hover, .cta-band .btn-primary:hover { opacity: 0.88; color: var(--ink); }
+    @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.09); } }
+    .hero-brandmark {
+      position: absolute; z-index: 2; right: clamp(24px, 6vw, 80px); top: 50%; transform: translateY(-50%);
+      width: clamp(160px, 20vw, 260px); opacity: 0.94;
+    }
+    .hero-brandmark img { width: 100%; height: auto; display: block; }
+    @media (max-width: 900px) { .hero-brandmark { display: none; } }
+    @media (prefers-reduced-motion: reduce) { .hero-media img { animation: none; } }
+
+    /* Philosophy */
+    .felsefe-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px, 6vw, 90px); align-items: start; }
+    .felsefe-body p + p { margin-top: 22px; }
+    .pull-quote {
+      border-left: 1px solid var(--accent);
+      padding-left: 28px;
+      margin-top: 44px;
+    }
+    .pull-quote q { font-family: 'Marcellus', serif; font-size: clamp(1.3rem, 2vw, 1.6rem); line-height: 1.4; font-style: normal; quotes: none; }
+    .pull-quote cite { display: block; margin-top: 16px; font-size: 0.82rem; letter-spacing: 0.05em; color: var(--ink-soft); font-style: normal; }
+    .felsefe-figure-frame {
+      aspect-ratio: 4 / 4.6; overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .felsefe-figure-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .service-card { background: var(--stone-50); padding: 42px 34px; display: flex; flex-direction: column; gap: 20px; position: relative; transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease; }
+    .service-card:hover { background: var(--stone-100); box-shadow: var(--shadow-md); transform: translateY(-3px); z-index: 1; }
+    .service-icon { width: 34px; height: 34px; color: var(--accent); }
+    .service-icon svg { width: 100%; height: 100%; }
+    .service-name { font-size: 1.2rem; }
+    .service-desc { font-size: 0.92rem; line-height: 1.7; color: var(--ink-soft); font-weight: 300; }
+
+    /* Projects */
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(28px, 3vw, 44px); }
+    .project-card { display: flex; flex-direction: column; }
+    .project-sketch {
+      background: var(--stone-100);
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.35s ease;
+    }
+    .project-sketch img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+    .project-card:hover .project-sketch { box-shadow: var(--shadow-md); }
+    .project-card:hover .project-sketch img { transform: scale(1.07); }
+    .project-meta { padding-top: 20px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+    .project-name { font-size: 1.3rem; margin-bottom: 6px; }
+    .project-loc { font-size: 0.82rem; color: var(--ink-soft); letter-spacing: 0.04em; }
+    .project-tag { font-size: 0.78rem; color: var(--ink-soft); white-space: nowrap; text-align: right; }
+    .projects-foot { margin-top: 48px; display: flex; justify-content: center; }
+
+    /* Process */
+    .process-row { display: flex; gap: 0; }
+    .process-step { flex: 1; padding-right: 28px; position: relative; }
+    .process-step + .process-step { padding-left: 28px; border-left: 1px solid var(--line); }
+    .process-num { font-family: 'Marcellus', serif; font-size: 1.6rem; color: var(--accent); margin-bottom: 18px; }
+    .process-title { font-size: 1.05rem; margin-bottom: 12px; }
+    .process-desc { font-size: 0.88rem; line-height: 1.7; color: var(--ink-soft); font-weight: 300; }
+
+    /* CTA band */
+    .cta-band { position: relative; min-height: 72vh; display: flex; align-items: center; overflow: hidden; }
+    .cta-band-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; display: flex; width: 100%; height: 100%; }
+    .cta-band-media img { width: 50%; height: 100%; object-fit: cover; }
+    .cta-band-media img:first-child { object-position: 30% center; }
+    .cta-band-media img:last-child { object-position: 50% 30%; }
+    .cta-band-scrim {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(0deg, rgba(24,23,20,0.42), rgba(24,23,20,0.22) 55%, rgba(24,23,20,0.38)),
+                  rgba(24,23,20,0.14);
+    }
+    .cta-band-content { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; text-align: center; }
+    .cta-band-content .eyebrow { justify-content: center; }
+    .cta-band .eyebrow { color: var(--stone-100); }
+    .cta-band .eyebrow::before { background: var(--stone-100); }
+    .cta-band .section-title { color: var(--stone-50); margin-bottom: 22px; text-wrap: balance; }
+    .cta-band-text { color: rgba(250,246,238,0.9); font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.85; font-weight: 300; max-width: 520px; margin: 0 auto 36px; }
+    @media (max-width: 780px) { .cta-band-media { flex-direction: column; } .cta-band-media img { width: 100%; height: 50%; } }
+
+    /* Testimonials */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(28px, 3vw, 44px); }
+    .testimonial-card { background: var(--stone-50); border: 1px solid var(--line); padding: 38px 32px; display: flex; flex-direction: column; }
+    .quote-mark { font-family: 'Marcellus', serif; font-size: 2.6rem; color: var(--accent); line-height: 1; margin-bottom: 14px; }
+    .testimonial-text { font-size: 0.96rem; line-height: 1.75; color: var(--ink); font-weight: 300; flex-grow: 1; }
+    .testimonial-author { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.82rem; letter-spacing: 0.03em; color: var(--ink-soft); }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(40px, 6vw, 90px); }
+    .contact-block + .contact-block { margin-top: 34px; }
+    .contact-label { font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+    .contact-value { font-size: 1.05rem; line-height: 1.6; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-field { display: flex; flex-direction: column; gap: 8px; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-field label { font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+    .form-field input, .form-field textarea {
+      font-family: 'Jost', sans-serif; font-size: 0.95rem; color: var(--ink);
+      background: var(--stone-50); border: 1px solid var(--line); border-radius: 2px;
+      padding: 13px 14px; outline: none;
+    }
+    .form-field input:focus, .form-field textarea:focus { border-color: var(--accent); }
+    .form-field textarea { resize: vertical; min-height: 110px; font-family: 'Jost', sans-serif; }
+    .form-submit { margin-top: 6px; border: none; }
+    .checkbox-group { display: flex; flex-wrap: wrap; gap: 10px 22px; padding: 4px 0 2px; }
+    .checkbox-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.9rem; color: var(--ink); font-weight: 300;
+      text-transform: none; letter-spacing: normal; cursor: pointer;
+    }
+    .checkbox-item input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Footer */
+    .footer { background: var(--footer); color: var(--stone-100); padding: 64px 0 30px; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; padding-bottom: 44px; border-bottom: 1px solid rgba(250,246,238,0.14); }
+    .footer-logo-img { height: 108px; width: auto; display: block; }
+    .footer-links { display: flex; gap: clamp(24px, 4vw, 56px); flex-wrap: wrap; }
+    .footer-links a { font-size: 0.86rem; color: rgba(250,246,238,0.78); }
+    .footer-links a:hover { color: var(--stone-50); }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { width: 34px; height: 34px; border: 1px solid rgba(250,246,238,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .footer-social svg { width: 15px; height: 15px; color: rgba(250,246,238,0.85); }
+    .footer-bottom { padding-top: 26px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 0.78rem; color: rgba(250,246,238,0.5); }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .felsefe-grid { grid-template-columns: 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .process-row { flex-wrap: wrap; row-gap: 36px; }
+      .process-step { flex: 1 1 45%; }
+      .process-step + .process-step { border-left: none; padding-left: 0; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .process-step { flex: 1 1 100%; }
+      .footer-top { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page" style="--accent: #1E3A4A;">
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-links">
+        <a href="#felsefe">Felsefe</a>
+        <a href="#hizmetler">Hizmetler</a>
+        <a href="#projeler">Projeler</a>
+        <a href="#surec">Süreç</a>
+        <a href="#referanslar">Referanslar</a>
+      </div>
+      <a href="#iletisim" class="btn btn-primary nav-cta">İletişime Geçin</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-media">
+      <img src="images/no19-dream-residence.jpg" alt="" loading="eager">
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-brandmark">
+      <img src="images/kairo-logo-white.png" alt="KAIRO Studio — Architecture, Interior Design, Construction">
+    </div>
+    <div class="hero-content">
+      <div class="container">
+        <p class="eyebrow">Yalıkavak · Bodrum</p>
+        <h1>Mekânı Sadece Yenilemiyoruz,<br>Değerini Tasarlıyoruz</h1>
+        <p class="hero-sub">Bodrum'da mekânı kullanım, atmosfer ve uygulama gerçekliğiyle tasarlıyoruz. Keşiften teslime; mimari, iç mekân ve saha uygulamasını tek çatı altında yürütüyoruz.</p>
+        <div class="hero-actions">
+          <a href="#iletisim" class="btn btn-primary">Projenizi Konuşalım</a>
+          <a href="#projeler" class="btn btn-ghost">Projelerimizi Görün</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="felsefe">
+    <div class="container">
+      <div class="felsefe-grid">
+        <div>
+          <p class="eyebrow">Felsefemiz</p>
+          <h2 class="section-title" style="margin-bottom: 30px;">Kullanım, Atmosfer<br>ve Uygulama Gerçekliği</h2>
+          <div class="felsefe-body lede">
+            <p>KAIRO, Bodrum'un doğal dokusunu, taşın hafızasını ve köklü yaşam kültürünü tasarımın başlangıç noktası kabul eder.</p>
+            <p>Konutlardan turizm, konaklama ve ticari alanlara kadar her proje; doğru analiz, doğru malzeme ve uygulama disipliniyle ele alınır. Amacımız yalnızca bugünü güzelleştirmek değil; yapının uzun vadeli kullanım konforunu ve mülk değerini gözetmektir.</p>
+            <p>Bu yaklaşım; konutlarda nesiller boyu aktarılabilecek kalıcı bir aile mirasına, ticari ve turizm mekânlarında ise güçlü bir kimliğe ve uzun ömürlü bir deneyime dönüşür.</p>
+          </div>
+          <div class="pull-quote">
+            <q>Bodrum'da mekânı sadece yenilemiyoruz, onun gelecekteki değerini tasarlıyoruz.</q>
+            <cite>— Volkan H. Benzetme, Kurucu Mimar, KAIRO Studio</cite>
+          </div>
+        </div>
+        <div class="felsefe-figure">
+          <div class="felsefe-figure-frame">
+            <img src="images/d16-renovasyon.jpg" alt="KAIRO iç mekan uygulaması, deniz manzaralı yaşam alanı">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="hizmetler">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Hizmetlerimiz</p>
+        <h2 class="section-title">Tasarımdan Uygulamaya,<br>Tek Elden</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="2"/><line x1="16" y1="10" x2="9" y2="26"/><line x1="16" y1="10" x2="23" y2="26"/><line x1="11" y1="20" x2="21" y2="20"/></svg>
+          </div>
+          <h3 class="service-name">Mimari Tasarım</h3>
+          <p class="service-desc">Arazi analizinden kesin projeye; kullanım, atmosfer ve uygulama gerçekliğiyle şekillenen özgün konut ve villa tasarımları.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14V9a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"/><path d="M7 14h18v6a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z"/><line x1="9" y1="22" x2="9" y2="26"/><line x1="23" y1="22" x2="23" y2="26"/></svg>
+          </div>
+          <h3 class="service-name">İç Mimari</h3>
+          <p class="service-desc">Mimari ile bütünleşik iç mekânlar; doğal malzemeler, özel mobilya tasarımı ve sakin bir yaşam atmosferi.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 24C8 14 14 8 24 8c0 10-6 16-16 16z"/><path d="M8 24 20 12"/></svg>
+          </div>
+          <h3 class="service-name">Peyzaj Tasarımı</h3>
+          <p class="service-desc">Zeytin ve defne ile şekillenen bahçeler, infinity havuzlar ve arazinin topografyasına uyumlu dış mekânlar.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="7" width="16" height="21" rx="1.5"/><path d="M12 7V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"/><path d="M12 17l3 3 6-7"/></svg>
+          </div>
+          <h3 class="service-name">Proje Yönetimi &amp; Uygulama</h3>
+          <p class="service-desc">Keşiften teslime tek çözüm ortağı: saha koordinasyonu, tedarik ve düzenli raporlamayla anahtar teslim dönüşüm.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="6" x2="25" y2="6"/><line x1="7" y1="26" x2="25" y2="26"/><line x1="11" y1="8" x2="11" y2="24"/><line x1="16" y1="8" x2="16" y2="24"/><line x1="21" y1="8" x2="21" y2="24"/></svg>
+          </div>
+          <h3 class="service-name">Restorasyon</h3>
+          <p class="service-desc">Tescilli kültür varlıklarından Bodrum'un taş evlerine; özgün dokuya sadık kalarak günümüz konforuyla yeniden işlevlendirme.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="14" width="18" height="6" rx="1"/><line x1="11" y1="14" x2="11" y2="10"/><line x1="21" y1="14" x2="21" y2="10"/><line x1="16" y1="20" x2="16" y2="25"/><line x1="10" y1="25" x2="22" y2="25"/></svg>
+          </div>
+          <h3 class="service-name">Teknik Uygulama</h3>
+          <p class="service-desc">İzolasyon, tesisat, çelik ve ahşap imalat, ince işler; tasarımın sahadaki karşılığını güvence altına alan teknik kapsam.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projeler">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Portfolyo</p>
+        <h2 class="section-title">Öne Çıkan Projeler</h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <img src="images/no19-dream-residence.jpg" alt="No 19 Dream Residence" loading="lazy">
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">No 19 Dream Residence</h3>
+              <p class="project-loc">Yalıçiftlik, Bodrum</p>
+            </div>
+            <p class="project-tag">4.200 m² · 56 Rezidans · 2025</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <img src="images/gulumser-ailesi-konutu.jpg" alt="Gülümser Ailesi Konutu" loading="lazy">
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Gülümser Ailesi Konutu</h3>
+              <p class="project-loc">Akyarlar, Bodrum</p>
+            </div>
+            <p class="project-tag">120 m² · Konut Renovasyonu · Tamamlandı</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <img src="images/d16-renovasyon.jpg" alt="D-16 Renovasyon" loading="lazy">
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">D-16 Renovasyon</h3>
+              <p class="project-loc">Yalıkavak, Bodrum</p>
+            </div>
+            <p class="project-tag">160 m² · Konut Renovasyonu · Tamamlandı</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <img src="images/kadim-bey-mustemilat.jpg" alt="Kadim Bey Müştemilat" loading="lazy">
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Kadim Bey Müştemilat</h3>
+              <p class="project-loc">Yalıkavak, Bodrum</p>
+            </div>
+            <p class="project-tag">150 m² · Müştemilat Renovasyonu · Tasarım Tamamlandı</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <img src="images/mercankoy-e4.jpg" alt="Mercanköy Sitesi E-4" loading="lazy">
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Mercanköy Sitesi E-4</h3>
+              <p class="project-loc">Yalıkavak, Bodrum</p>
+            </div>
+            <p class="project-tag">180 m² · Villa Renovasyonu · Tamamlandı</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <img src="images/firat-bey-villa.jpg" alt="Fırat Bey Villa" loading="lazy">
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Fırat Bey Villa</h3>
+              <p class="project-loc">Yalıçiftlik, Bodrum</p>
+            </div>
+            <p class="project-tag">200 m² · Villa Renovasyonu · Uygulama Hazırlığında</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-sketch">
+            <img src="images/gerenkuyu-rezidans.jpg" alt="Gerenkuyu Rezidans" loading="lazy">
+          </div>
+          <div class="project-meta">
+            <div>
+              <h3 class="project-name">Gerenkuyu Rezidans</h3>
+              <p class="project-loc">Kızılağaç, Bodrum</p>
+            </div>
+            <p class="project-tag">9.000 m² · 100 Adet 2+1 Rezidans</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="projects-foot">
+        <a href="#iletisim" class="btn btn-ghost">Tüm Projeler İçin İletişime Geçin</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="surec">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">KAIRO Yöntemi</p>
+        <h2 class="section-title">İlk Görüşmeden Teslime</h2>
+      </div>
+      <div class="process-row">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3 class="process-title">İlk Temas &amp; İhtiyaç Analizi</h3>
+          <p class="process-desc">Beklentiler, kullanım biçimi ve tasarım öncelikleri ilk görüşmede netleştirilir.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3 class="process-title">Keşif &amp; Kapsam</h3>
+          <p class="process-desc">Yerinde ölçüm, rölöve ve mevcut durum analiziyle hizmet sınırları ve ön bütçe belirlenir.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3 class="process-title">Konsept &amp; Tasarım Kararları</h3>
+          <p class="process-desc">Tasarım yönü oluşturulur; alternatiflerin bütçe ve uygulama üzerindeki etkileri baştan simüle edilir.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h3 class="process-title">Proje &amp; Saha Uygulaması</h3>
+          <p class="process-desc">Teknik çizimler, malzeme onayları ve iş programı kilitlenir; tedarik ve saha ilerleyişi düzenli takip edilir.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">05</div>
+          <h3 class="process-title">Eksiksiz Teslim &amp; Takip</h3>
+          <p class="process-desc">Son kontroller (punch list) yapılır, teslim kayıtları hazırlanır ve süreç sonrası destek sağlanır.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-band-media">
+      <img src="images/cta-band-entrance.jpg" alt="" loading="lazy">
+      <img src="images/cta-band-sea-view.jpg" alt="" loading="lazy">
+    </div>
+    <div class="cta-band-scrim"></div>
+    <div class="container">
+      <div class="cta-band-content">
+        <p class="eyebrow">Zamanı Durduran Detaylar</p>
+        <h2 class="section-title">Işık, Rüzgâr ve Malzemenin<br>Yavaşlattığı Bir Yaşam</h2>
+        <p class="cta-band-text">Açık pencerelerden giren Ege meltemi; doğal taş yüzeyler, gün ışığı ve hafif keten dokularla dengeli bir iç mekân atmosferi oluşturur. Gürültü geride kalır.</p>
+        <a href="#iletisim" class="btn btn-primary">Projenizi Konuşalım</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="referanslar">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Referanslar</p>
+        <h2 class="section-title">Deneyim Konuşur</h2>
+      </div>
+      <div class="testimonial-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="testimonial-card">
+          <p class="contact-label" style="margin-bottom: 18px;">Restorasyon &amp; Kültür Mirası Deneyimi</p>
+          <ul style="display: flex; flex-direction: column; gap: 11px; font-size: 0.92rem; line-height: 1.6; color: var(--ink-soft); font-weight: 300; flex-grow: 1;">
+            <li>Patara Antik Kenti Restorasyon Uygulama</li>
+            <li>İstanbul Kapalıçarşı Restorasyon Uygulama</li>
+            <li>Belen Kanuni Sultan Süleyman Kervansarayı Restorasyon Projesi</li>
+            <li>Bilezikçiyan Çiftliği Yeniden İşlevlendirme Projesi</li>
+            <li>Sevakin Adası Kültür Varlıklarını Koruma ve Yaşatma Projeleri</li>
+          </ul>
+          <div class="testimonial-author">KAIRO kuruluşu öncesi, kurucumuzun tescilli kültür varlıkları üzerindeki mesleki deneyiminden.</div>
+        </div>
+        <div class="testimonial-card">
+          <p class="contact-label" style="margin-bottom: 18px;">Referanslarımız</p>
+          <p class="testimonial-text">Tamamladığımız projelerin sahipleriyle görüşme imkânını ilk keşif görüşmesinden sonra planlıyoruz. Talep eden adaylara, ilgili referansları ve iletişim bilgilerini bu aşamada paylaşıyoruz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="iletisim">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">İletişim</p>
+        <h2 class="section-title">Projenizi Birlikte<br>Şekillendirelim</h2>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-block">
+            <p class="contact-label">Ofis</p>
+            <p class="contact-value">KAIRO Studio<br>Yalıkavak, Bodrum<br>Muğla</p>
+          </div>
+          <div class="contact-block">
+            <p class="contact-label">Telefon</p>
+            <p class="contact-value">+90 544 635 58 62</p>
+          </div>
+          <div class="contact-block">
+            <p class="contact-label">E-posta</p>
+            <p class="contact-value">info@kairomimarlik.com</p>
+          </div>
+          <div class="contact-block">
+            <p class="contact-label">Randevu</p>
+            <p class="contact-value">İlk proje görüşmeleri randevu ile planlanmaktadır.</p>
+          </div>
+        </div>
+        <div>
+          <form id="lead-form" class="form-grid" autocomplete="on">
+            <input type="hidden" name="access_key" value="479e6b7b-2e15-464d-a344-973a8feb3b8b">
+            <input type="hidden" name="subject" value="KAIRO Studio — Yeni Proje Talebi">
+            <input type="hidden" name="from_name" value="KAIRO Studio Web Sitesi">
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+            <div class="form-field">
+              <label>Ad Soyad</label>
+              <input type="text" name="name" placeholder="Adınız Soyadınız" required>
+            </div>
+            <div class="form-field">
+              <label>Telefon</label>
+              <input type="tel" name="phone" placeholder="+90 5xx xxx xx xx" required>
+            </div>
+            <div class="form-field full">
+              <label>E-posta</label>
+              <input type="email" name="email" placeholder="ornek@eposta.com" required>
+            </div>
+            <div class="form-field full">
+              <label>Proje Konumu</label>
+              <input type="text" name="location" placeholder="Örn. Yalıkavak, Akyarlar, Gölköy…">
+            </div>
+            <div class="form-field full">
+              <label>İhtiyacınız</label>
+              <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="ihtiyaclar[]" value="Mimari Tasarım"> Mimari Tasarım</label>
+                <label class="checkbox-item"><input type="checkbox" name="ihtiyaclar[]" value="İç Mimari"> İç Mimari</label>
+                <label class="checkbox-item"><input type="checkbox" name="ihtiyaclar[]" value="Peyzaj Tasarımı"> Peyzaj Tasarımı</label>
+                <label class="checkbox-item"><input type="checkbox" name="ihtiyaclar[]" value="Proje Yönetimi & Uygulama"> Proje Yönetimi &amp; Uygulama</label>
+                <label class="checkbox-item"><input type="checkbox" name="ihtiyaclar[]" value="Restorasyon / Yeniden İşlevlendirme"> Restorasyon / Yeniden İşlevlendirme</label>
+                <label class="checkbox-item"><input type="checkbox" name="ihtiyaclar[]" value="Teknik Uygulama (İzolasyon, Tesisat, İmalat)"> Teknik Uygulama</label>
+                <label class="checkbox-item"><input type="checkbox" name="ihtiyaclar[]" value="Danışmanlık / Henüz Emin Değilim"> Danışmanlık / Henüz Emin Değilim</label>
+              </div>
+            </div>
+            <div class="form-field full">
+              <label>Yaklaşık Büyüklük / Bütçe (opsiyonel)</label>
+              <input type="text" name="scope_budget" placeholder="Örn. ~350 m², bütçe henüz netleşmedi">
+            </div>
+            <div class="form-field full">
+              <label>Mesajınız</label>
+              <textarea name="message" placeholder="Projeniz hakkında bize kısaca bahsedin…"></textarea>
+            </div>
+            <div class="form-field full">
+              <button type="submit" class="btn btn-primary form-submit">Gönder</button>
+              <p id="lead-form-status" style="margin-top: 14px; font-size: 0.86rem; min-height: 1.2em;"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#" class="logo">
+          <img src="images/kairo-logo-white.png" alt="KAIRO Studio — Architecture, Interior Design, Construction" class="footer-logo-img">
+        </a>
+        <div class="footer-links">
+          <a href="#felsefe">Felsefe</a>
+          <a href="#hizmetler">Hizmetler</a>
+          <a href="#projeler">Projeler</a>
+          <a href="#surec">Süreç</a>
+          <a href="#referanslar">Referanslar</a>
+          <a href="#iletisim">İletişim</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.6-6 2.2-8.4a2.4 2.4 0 1 1 4.6 1c-.4 1.6-1.3 4-3.3 4-1.6 0-2-1.2-1.7-2.4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 KAIRO Studio. Tüm hakları saklıdır.</span>
+        <span>Yalıkavak, Bodrum — Türkiye</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<script>
+document.addEventListener('submit', function (e) {
+  var form = (e.composedPath && e.composedPath()[0]) || e.target;
+  if (!form || form.id !== 'lead-form') return;
+  e.preventDefault();
+
+  var statusEl = form.querySelector('#lead-form-status');
+  var submitBtn = form.querySelector('.form-submit');
+  var accessKey = form.querySelector('[name="access_key"]');
+
+  if (!accessKey || !accessKey.value || accessKey.value.indexOf('PASTE_YOUR') === 0) {
+    if (statusEl) {
+      statusEl.textContent = 'Form henüz bağlanmadı: Web3Forms erişim anahtarı eksik.';
+      statusEl.style.color = '#a33';
+    }
+    return;
+  }
+
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Gönderiliyor…'; }
+  if (statusEl) { statusEl.textContent = ''; }
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: new FormData(form)
+  })
+    .then(function (res) { return res.json(); })
+    .then(function (json) {
+      if (json.success) {
+        form.reset();
+        if (statusEl) {
+          statusEl.textContent = 'Teşekkürler! Talebiniz alındı, en kısa sürede size dönüş yapacağız.';
+          statusEl.style.color = 'var(--accent)';
+        }
+      } else {
+        throw new Error(json.message || 'submit failed');
+      }
+    })
+    .catch(function () {
+      if (statusEl) {
+        statusEl.textContent = 'Bir şeyler ters gitti, lütfen tekrar deneyin ya da doğrudan arayın.';
+        statusEl.style.color = '#a33';
+      }
+    })
+    .finally(function () {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Gönder'; }
+    });
+});
+</script>
+<script>
+(function () {
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  function updateNav() {
+    if (window.scrollY > 40) { nav.classList.add('nav--solid'); }
+    else { nav.classList.remove('nav--solid'); }
+  }
+  updateNav();
+  document.addEventListener('scroll', updateNav, { passive: true });
+})();
+</script>
+</body>
+</html>
