@@ -37,16 +37,25 @@ export default function Studio() {
         <title>Stüdyo — KAIRO Studio</title>
         <meta
           name="description"
-          content="KAIRO Studio, Bodrum'un doğal dokusunu, taşın hafızasını ve köklü yaşam kültürünü tasarımın başlangıç noktası kabul eder. Kurucu mimar Volkan H. Benzetme'nin restorasyon deneyimi."
+          content="KAIRO Studio, Bodrum'un doğal dokusunu, taşın hafızasını ve köklü yaşam kültürünü tasarımın başlangıç noktası kabul eder. Mimar Volkan H. Benzetme'nin restorasyon deneyimi."
         />
         <link rel="canonical" href="https://kairomimarlik.com/studio" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Stüdyo — KAIRO Studio" />
         <meta
           property="og:description"
-          content="Kullanım, atmosfer ve uygulama gerçekliği: KAIRO Studio'nun tasarım felsefesi ve kurucusu."
+          content="Kullanım, atmosfer ve uygulama gerçekliği: KAIRO Studio'nun tasarım felsefesi ve mimarı."
         />
         <meta property="og:url" content="https://kairomimarlik.com/studio" />
+        <meta property="og:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
+        <meta property="og:locale" content="tr_TR" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Stüdyo — KAIRO Studio" />
+        <meta
+          name="twitter:description"
+          content="Kullanım, atmosfer ve uygulama gerçekliği: KAIRO Studio'nun tasarım felsefesi ve mimarı."
+        />
+        <meta name="twitter:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
       </Head>
 
       <Nav />
@@ -131,7 +140,7 @@ export default function Studio() {
             viewport={{ once: true, amount: 0.4 }}
             variants={fadeUp}
           >
-            <p className="eyebrow">Kurucu</p>
+            <p className="eyebrow">Mimar</p>
             <h2 className="section-title">Volkan H. Benzetme</h2>
           </motion.div>
           <motion.div
@@ -143,8 +152,10 @@ export default function Studio() {
             variants={fadeUp}
           >
             <p>
-              KAIRO'nun kurucu mimarı. KAIRO çatısı altındaki çalışmaların öncesinde, tescilli kültür varlıkları
-              üzerinde restorasyon deneyimi edinmiştir:
+              KAIRO'nun mimarı. Bodrum'da konut ve rezidans ölçeğindeki projelerde tasarımdan sahadaki
+              uygulamaya kadar süreci bizzat yürütür. KAIRO'dan önce tescilli kültür varlıkları üzerinde
+              restorasyon mimarı olarak görev almış; İstanbul Kapalıçarşı, Patara Antik Kenti ve Hatay Belen
+              Kervansarayı gibi anıtsal yapıların restorasyon çalışmalarında yer almıştır.
             </p>
             <ul style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 10, fontSize: "0.95rem" }}>
               {RESTORATION_CREDENTIALS.map((item) => (

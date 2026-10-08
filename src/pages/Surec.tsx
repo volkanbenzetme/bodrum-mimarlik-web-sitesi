@@ -27,6 +27,12 @@ export default function Surec() {
           content="İlk temastan teslime, KAIRO Yöntemi'nin sekiz aşaması."
         />
         <meta property="og:url" content="https://kairomimarlik.com/surec" />
+        <meta property="og:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
+        <meta property="og:locale" content="tr_TR" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Süreç — KAIRO Studio" />
+        <meta name="twitter:description" content="İlk temastan teslime, KAIRO Yöntemi'nin sekiz aşaması." />
+        <meta name="twitter:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
       </Head>
 
       <Nav />

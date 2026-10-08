@@ -27,6 +27,15 @@ export default function Iletisim() {
           content="Projenizi birlikte şekillendirelim — KAIRO Studio ile iletişime geçin."
         />
         <meta property="og:url" content="https://kairomimarlik.com/iletisim" />
+        <meta property="og:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
+        <meta property="og:locale" content="tr_TR" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="İletişim — KAIRO Studio" />
+        <meta
+          name="twitter:description"
+          content="Projenizi birlikte şekillendirelim — KAIRO Studio ile iletişime geçin."
+        />
+        <meta name="twitter:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
       </Head>
 
       <Nav />

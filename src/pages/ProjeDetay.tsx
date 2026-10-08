@@ -54,6 +54,22 @@ export default function ProjeDetay() {
         <meta property="og:description" content={project.description[0]} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content={`https://kairomimarlik.com${project.image}`} />
+        <meta property="og:locale" content="tr_TR" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${project.name} — KAIRO Studio`} />
+        <meta name="twitter:description" content={project.description[0]} />
+        <meta name="twitter:image" content={`https://kairomimarlik.com${project.image}`} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://kairomimarlik.com/" },
+              { "@type": "ListItem", position: 2, name: "Projeler", item: "https://kairomimarlik.com/projeler" },
+              { "@type": "ListItem", position: 3, name: project.name, item: canonicalUrl },
+            ],
+          })}
+        </script>
       </Head>
 
       <Nav hasHero />
@@ -138,6 +154,10 @@ export default function ProjeDetay() {
                 caption: project.galleryCaption,
                 span2: true,
               },
+              ...(project.gallery ?? []).map((src) => ({
+                src,
+                alt: project.imageAlt,
+              })),
             ]}
           />
 

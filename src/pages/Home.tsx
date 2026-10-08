@@ -5,17 +5,12 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import WhatsAppFloat from "../components/WhatsAppFloat";
 import HeroCarousel from "../components/HeroCarousel";
-import ProjectCard, { projectCardVariants } from "../components/ProjectCard";
-import ServiceCard, { serviceCardVariants } from "../components/ServiceCard";
+import AtmosphereField from "../components/AtmosphereField";
+import ProjectRoute from "../components/ProjectRoute";
+import WorkAreas from "../components/WorkAreas";
 import RiskBand from "../components/RiskBand";
 import CtaBand from "../components/CtaBand";
-import { projects } from "../data/projects";
-import { services } from "../data/services";
-
-const gridVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
+import { organizationSchema } from "../data/organization";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -26,10 +21,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>KAIRO Studio — Mimari Tasarım, İç Mimarlık, Uygulama</title>
+        <title>KAIRO Studio — Bodrum Mimarlık, Tadilat ve İç Mimarlık</title>
         <meta
           name="description"
-          content="KAIRO Studio — Bodrum Yalıkavak merkezli mimari tasarım, iç mimarlık ve proje yönetimi/uygulama stüdyosu. Tasarımdan anahtar teslime tek elden."
+          content="KAIRO Studio — Bodrum Yalıkavak merkezli mimari tasarım, tadilat/renovasyon, iç mimarlık ve uygulama stüdyosu. Tasarımdan anahtar teslime tek elden."
         />
         <link rel="canonical" href="https://kairomimarlik.com/" />
         <meta property="og:type" content="website" />
@@ -49,6 +44,7 @@ export default function Home() {
           content="Bodrum Yalıkavak merkezli mimari tasarım, iç mimarlık ve proje yönetimi/uygulama stüdyosu."
         />
         <meta name="twitter:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
       </Head>
 
       <Nav hasHero />
@@ -56,7 +52,8 @@ export default function Home() {
 
       <HeroCarousel />
 
-      <section className="section">
+      <section className="section section-atmosphere">
+        <AtmosphereField />
         <div className="container">
           <motion.div
             className="intro-band"
@@ -83,38 +80,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-alt" id="secili-projeler">
-        <div className="container-wide">
-          <motion.div
-            className="section-head"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            variants={fadeUp}
-          >
-            <p className="eyebrow">Portfolyo</p>
-            <h2 className="section-title">Öne Çıkan Projeler</h2>
-          </motion.div>
-          <motion.div
-            className="project-grid"
-            variants={gridVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </motion.div>
-          <div style={{ marginTop: 48, textAlign: "center" }}>
-            <Link to="/projeler" className="btn btn-ghost">
-              Tüm Projeleri Gör
-            </Link>
-          </div>
-        </div>
-      </section>
+      <ProjectRoute />
 
-      <section className="section section-alt">
+      <section className="section section-deep">
         <div className="container">
           <motion.div
             className="section-head"
@@ -126,17 +94,7 @@ export default function Home() {
             <p className="eyebrow">Hizmetlerimiz</p>
             <h2 className="section-title">Dört Çalışma Alanı</h2>
           </motion.div>
-          <motion.div
-            className="services-grid"
-            variants={gridVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-          >
-            {services.map((service) => (
-              <ServiceCard key={service.number} service={service} />
-            ))}
-          </motion.div>
+          <WorkAreas />
           <div style={{ marginTop: 40, textAlign: "center" }}>
             <Link to="/surec" className="btn btn-ghost">
               Çalışma Yöntemimiz
@@ -149,7 +107,7 @@ export default function Home() {
 
       <CtaBand />
 
-      <section className="section section-alt" id="iletisim-ozet">
+      <section className="section" id="iletisim-ozet">
         <div className="container">
           <motion.div
             className="section-head"

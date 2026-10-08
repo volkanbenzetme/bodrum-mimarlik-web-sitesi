@@ -42,6 +42,8 @@ export interface Project {
   description: string[];
   /** Galeri görseli altındaki not. */
   galleryCaption: string;
+  /** Ana görsel dışında, public/images/<slug>/ altındaki ek galeri görselleri (kök-göreli yol). */
+  gallery?: string[];
   /** Sadece uygulaması tamamlanmış projelerde: referans/görüşme talebi notu. */
   referenceNote?: string;
   /** Ana sayfa hero carousel'inde gösterilecekse sıra (1'den başlar); yoksa carousel'de yer almaz. */
@@ -67,8 +69,18 @@ export const projects: Project[] = [
     description: [
       "No 19 Dream Residence, Yalıçiftlik'te 56 adet 1+1 rezidans, sosyal tesis ve kapalı otoparktan oluşan 4.200 m² kapalı alanlı bir toplu konut projesidir. KAIRO bu projede tasarım ve görselleştirmeden sorumlu olmuş, Mimar Hasan Huz ile tasarım iş birliği içinde çalışmıştır. Proje henüz uygulama aşamasına geçmemiştir.",
     ],
-    galleryCaption:
-      "Tasarım görselleştirmesi. Uygulama sürecine ait görsel bulunmuyor — proje henüz bu aşamaya geçmedi.",
+    galleryCaption: "Tasarım görselleştirmesi.",
+    gallery: [
+      "/images/no-19-dream-residence/01.jpg",
+      "/images/no-19-dream-residence/02.jpg",
+      "/images/no-19-dream-residence/03.jpg",
+      "/images/no-19-dream-residence/04.jpg",
+      "/images/no-19-dream-residence/05.jpg",
+      "/images/no-19-dream-residence/06.jpg",
+      "/images/no-19-dream-residence/07.jpg",
+      "/images/no-19-dream-residence/08.jpg",
+      "/images/no-19-dream-residence/09.jpg",
+    ],
     heroOrder: 1,
     heroTag: "Yalıçiftlik, Bodrum · 56 Rezidans",
   },
@@ -88,8 +100,16 @@ export const projects: Project[] = [
       "Gülümser Ailesi Konutu, Akyarlar'da mevcut bir 120 m² konutun tasarımdan uygulamaya kadar tek elden yürütülen bir renovasyon projesidir. KAIRO bu projede tasarım, görselleştirme ve saha uygulamasının tamamından sorumlu olmuştur.",
       "Proje, ailenin geçmişten taşıdığı anılarla birlikte uzun yıllar yaşanabilecek kalıcı bir aile mirasına dönüştürülmesi hedefiyle ele alınmıştır.",
     ],
-    galleryCaption:
-      "Tamamlanmış sonuç — 3D Görselleştirme. Mevcut durum ve uygulama sürecine ait fotoğraflar henüz arşivde yok.",
+    galleryCaption: "Tamamlanmış sonuç — 3D Görselleştirme.",
+    gallery: [
+      "/images/gulumser-ailesi-konutu/02.jpg",
+      "/images/gulumser-ailesi-konutu/03.jpg",
+      "/images/gulumser-ailesi-konutu/04.jpg",
+      "/images/gulumser-ailesi-konutu/05.jpg",
+      "/images/gulumser-ailesi-konutu/06.jpg",
+      "/images/gulumser-ailesi-konutu/07.jpg",
+      "/images/gulumser-ailesi-konutu/08.jpg",
+    ],
     referenceNote:
       "Referans/görüşme talebi için ilk keşif görüşmesi sonrasında iletişime geçilebilir.",
     heroOrder: 2,
@@ -110,8 +130,15 @@ export const projects: Project[] = [
     description: [
       "Mercanköy Sitesi E-4, Yalıkavak'ta 180 m²'lik bir villanın tasarımdan uygulamaya kadar yenilendiği bir projedir. KAIRO, tasarım ve görselleştirmenin yanı sıra sahadaki uygulama sürecinin tamamını yürütmüştür.",
     ],
-    galleryCaption:
-      "Tamamlanmış sonuç — 3D Görselleştirme. Mevcut durum ve uygulama sürecine ait fotoğraflar henüz arşivde yok.",
+    galleryCaption: "Tamamlanmış sonuç — 3D Görselleştirme.",
+    gallery: [
+      "/images/mercankoy-e4/01.jpg",
+      "/images/mercankoy-e4/02.jpg",
+      "/images/mercankoy-e4/03.jpg",
+      "/images/mercankoy-e4/04.jpg",
+      "/images/mercankoy-e4/05.jpg",
+      "/images/mercankoy-e4/06.jpg",
+    ],
     referenceNote:
       "Referans/görüşme talebi için ilk keşif görüşmesi sonrasında iletişime geçilebilir.",
     heroOrder: 3,
@@ -132,7 +159,21 @@ export const projects: Project[] = [
     description: [
       "D-16 Renovasyon, Yalıkavak Mercanköy Sitesi'nde 160 m²'lik bir konut için geliştirilen bir renovasyon tasarımıdır. KAIRO bu projede tasarım ve görselleştirmeyi tamamlamıştır; saha uygulaması bu kapsamda yer almamaktadır.",
     ],
-    galleryCaption: "Tasarım görselleştirmesi. Uygulama sürecine ait görsel bulunmuyor.",
+    galleryCaption: "Tasarım görselleştirmesi.",
+    gallery: [
+      "/images/d16-renovasyon/01.jpg",
+      "/images/d16-renovasyon/02.jpg",
+      "/images/d16-renovasyon/03.jpg",
+      "/images/d16-renovasyon/04.jpg",
+      "/images/d16-renovasyon/05.jpg",
+      "/images/d16-renovasyon/06.jpg",
+      "/images/d16-renovasyon/07.jpg",
+      "/images/d16-renovasyon/08.jpg",
+      "/images/d16-renovasyon/09.jpg",
+      "/images/d16-renovasyon/10.jpg",
+      "/images/d16-renovasyon/11.jpg",
+      "/images/d16-renovasyon/12.jpg",
+    ],
   },
   {
     slug: "kadim-bey-mustemilat",
@@ -149,7 +190,15 @@ export const projects: Project[] = [
     description: [
       "Kadim Bey Müştemilat, Yalıkavak'ta 150 m²'lik bir müştemilat yapısının renovasyon tasarımıdır. KAIRO bu projede tasarım ve görselleştirmeyi tamamlamış olup, saha uygulaması bu kapsamda yer almamaktadır.",
     ],
-    galleryCaption: "Tasarım görselleştirmesi. Uygulama sürecine ait görsel bulunmuyor.",
+    galleryCaption: "Tasarım görselleştirmesi.",
+    gallery: [
+      "/images/kadim-bey-mustemilat/01.jpg",
+      "/images/kadim-bey-mustemilat/02.jpg",
+      "/images/kadim-bey-mustemilat/03.jpg",
+      "/images/kadim-bey-mustemilat/04.jpg",
+      "/images/kadim-bey-mustemilat/05.jpg",
+      "/images/kadim-bey-mustemilat/06.jpg",
+    ],
   },
   {
     slug: "firat-bey-villa",
@@ -166,8 +215,15 @@ export const projects: Project[] = [
     description: [
       "Fırat Bey Villa, Yalıçiftlik'te 200 m²'lik bir villanın renovasyon projesidir. Tasarım ve görselleştirme tamamlanmış olup, proje şu an saha uygulamasına hazırlık aşamasındadır.",
     ],
-    galleryCaption:
-      "Tasarım görselleştirmesi. Uygulama henüz başlamadığı için sahaya ait görsel bulunmuyor.",
+    galleryCaption: "Tasarım görselleştirmesi.",
+    gallery: [
+      "/images/firat-bey-villa/01.jpg",
+      "/images/firat-bey-villa/02.jpg",
+      "/images/firat-bey-villa/03.jpg",
+      "/images/firat-bey-villa/04.jpg",
+      "/images/firat-bey-villa/05.jpg",
+      "/images/firat-bey-villa/06.jpg",
+    ],
   },
   {
     slug: "gerenkuyu-rezidans",
@@ -184,7 +240,17 @@ export const projects: Project[] = [
     description: [
       "Gerenkuyu Rezidans, Kızılağaç'ta 100 adet 2+1 rezidanstan oluşan, 9.000 m² toplam ve 6.700 m² kapalı alana sahip büyük ölçekli bir konut projesidir. KAIRO bu projede avan proje ve görselleştirme aşamasını tamamlamıştır; uygulama projesi ve inşaat bu kapsamda yer almamaktadır.",
     ],
-    galleryCaption: "Avan proje görselleştirmesi. Uygulama sürecine ait görsel bulunmuyor.",
+    galleryCaption: "Avan proje görselleştirmesi.",
+    gallery: [
+      "/images/gerenkuyu-rezidans/01.jpg",
+      "/images/gerenkuyu-rezidans/08.jpg",
+      "/images/gerenkuyu-rezidans/02.jpg",
+      "/images/gerenkuyu-rezidans/03.jpg",
+      "/images/gerenkuyu-rezidans/04.jpg",
+      "/images/gerenkuyu-rezidans/05.jpg",
+      "/images/gerenkuyu-rezidans/06.jpg",
+      "/images/gerenkuyu-rezidans/07.jpg",
+    ],
     heroOrder: 4,
     heroTag: "Kızılağaç, Bodrum · 100 Adet 2+1",
   },

@@ -22,7 +22,6 @@ export default function ProcessList() {
     >
       {processSteps.map((step) => (
         <motion.li key={step.title} variants={itemVariants}>
-          <div />
           <div>
             <p className="process-step-title">{step.title}</p>
             <p className="process-step-desc">{step.description}</p>

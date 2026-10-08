@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { servicePages } from "../data/servicePages";
 
 export default function Footer() {
   return (
@@ -19,6 +20,13 @@ export default function Footer() {
             <Link to="/surec">Süreç</Link>
             <Link to="/iletisim">İletişim</Link>
           </div>
+        </div>
+        <div className="footer-links">
+          {servicePages.map((s) => (
+            <Link key={s.slug} to={`/${s.slug}`}>
+              {s.eyebrow}
+            </Link>
+          ))}
         </div>
         <div className="footer-bottom">
           <span>© 2026 KAIRO Studio. Tüm hakları saklıdır.</span>

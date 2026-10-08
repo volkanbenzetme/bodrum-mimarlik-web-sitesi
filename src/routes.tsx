@@ -6,7 +6,9 @@ import Surec from "./pages/Surec";
 import Iletisim from "./pages/Iletisim";
 import ProjelerIndex from "./pages/ProjelerIndex";
 import ProjeDetay from "./pages/ProjeDetay";
+import HizmetDetay from "./pages/HizmetDetay";
 import { projects } from "./data/projects";
+import { servicePages } from "./data/servicePages";
 
 // Sayfalar tek bir bundle içinde eager import edilir (code-splitting yok) — site küçük,
 // vite-react-ssg'nin `lazy` alanı FOUC/hydration riskleriyle geliyor (bkz. paket README'i);
@@ -22,5 +24,10 @@ export const routes: RouteRecord[] = [
     path: "/projeler/:slug",
     Component: ProjeDetay,
     getStaticPaths: () => projects.map((p) => `/projeler/${p.slug}`),
+  },
+  {
+    path: "/:slug",
+    Component: HizmetDetay,
+    getStaticPaths: () => servicePages.map((s) => `/${s.slug}`),
   },
 ];
