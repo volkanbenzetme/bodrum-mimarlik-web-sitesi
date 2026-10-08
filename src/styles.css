@@ -310,17 +310,23 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .panel-media { position: relative; }
-.panel-frame { position: relative; aspect-ratio: 4 / 3; overflow: hidden; box-shadow: var(--shadow-sm); background: var(--stone-200); }
+.panel-frame {
+  display: block; width: 100%; padding: 0; border: 0; margin: 0; cursor: pointer;
+  position: relative; aspect-ratio: 4 / 3; overflow: hidden; box-shadow: var(--shadow-sm); background: var(--stone-200);
+}
 .panel-frame img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.001); transition: transform 5s cubic-bezier(0.2, 0.6, 0.2, 1); }
 .panel.is-visible .panel-frame img { transform: scale(1.05); }
 .panel-status { position: absolute; top: 16px; left: 16px; z-index: 2; background: rgba(247, 245, 240, 0.92); color: var(--ink); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 12px; }
 .panel-sheet { position: absolute; top: 16px; right: 16px; z-index: 2; font-family: "Marcellus", serif; font-size: 0.82rem; letter-spacing: 0.05em; color: var(--stone-50); background: rgba(var(--accent-rgb), 0.82); padding: 5px 11px; }
 
-/* Film şeridi: bugün sadece bir gerçek fotoğraf var, geri kalanı rezerve — gelecekte
-   fotoğraf eklendiğinde yeniden kurulum gerekmez, gözler zaten hazır. */
+/* Film şeridi: proje galerisinden gelen küçük önizlemeler, tıklanınca lightbox'ta büyür. */
 .panel-strip { display: flex; gap: 8px; margin-top: 10px; }
-.strip-slot { flex: 1; aspect-ratio: 16 / 10; overflow: hidden; position: relative; }
-.strip-slot img { width: 100%; height: 100%; object-fit: cover; }
+.strip-slot {
+  display: block; flex: 1; padding: 0; border: 0; margin: 0; cursor: pointer;
+  aspect-ratio: 16 / 10; overflow: hidden; position: relative;
+}
+.strip-slot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.strip-slot:hover img, .strip-slot:focus-visible img { transform: scale(1.06); }
 .strip-slot.is-active { box-shadow: inset 0 0 0 2px var(--accent); }
 .strip-slot.is-reserved { border: 1px dashed var(--line); background: transparent; display: flex; align-items: center; justify-content: center; }
 .strip-slot.is-reserved::after { content: ""; width: 12px; height: 1px; background: var(--ink-soft); opacity: 0.4; }

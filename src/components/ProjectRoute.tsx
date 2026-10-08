@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { projects, PROJECT_STATUS_LABEL } from "../data/projects";
+import Lightbox from "./Lightbox";
 
 // "Proje Rotası" — statik ızgara yerine, sol tarafta ölçek çubuğu rayı olan,
 // dönüşümlü sıralanan tam genişlikte proje panelleri. Her panelde bir çizim-föyü
-// numarası (A—01, A—02…) ve bugün tek fotoğrafla dolu, geri kalanı "rezerve"
-// (gelecekteki fotoğraflar için) bir film şeridi var — tek-fotoğraf kısıtı
-// gizlenmiyor, tasarımın görünür bir parçası.
+// numarası (A—01, A—02…) ve ana fotoğrafla birlikte projenin galerisinden gelen
+// küçük bir film şeridi var; her ikisi de tıklanınca lightbox'ta büyür.
 export default function ProjectRoute() {
   const panelRefs = useRef<(HTMLElement | null)[]>([]);
   const trackRef = useRef<HTMLDivElement>(null);
   const [ticks, setTicks] = useState<number[]>(() => projects.map(() => 0));
   const [activeIndex, setActiveIndex] = useState(0);
   const [visible, setVisible] = useState<boolean[]>(() => projects.map(() => false));
+  const [lightbox, setLightbox] = useState<{ project: number; image: number } | null>(null);
 
   useEffect(() => {
     function layoutTicks() {
@@ -74,8 +75,17 @@ export default function ProjectRoute() {
   const progressPct = ((activeIndex + 1) / projects.length) * 100;
   const total = String(projects.length).padStart(2, "0");
 
+  const lightboxProject = lightbox ? projects[lightbox.project] : null;
+  const lightboxImages = lightboxProject
+    ? [
+        { src: lightboxProject.image, alt: lightboxProject.imageAlt },
+        ...(lightboxProject.gallery ?? []).map((src) => ({ src, alt: lightboxProject.name })),
+      ]
+    : [];
+
   return (
-    <section className="section route-section" id="secili-projeler">
+    <>
+      <section className="section route-section" id="secili-projeler">
       <div className="container-wide">
         <div className="section-head">
           <p className="eyebrow">Portfolyo</p>
@@ -113,21 +123,37 @@ export default function ProjectRoute() {
               className={`panel ${i % 2 === 0 ? "side-a" : "side-b"}${visible[i] ? " is-visible" : ""}`}
             >
               <div className="panel-media">
-                <div className="panel-frame">
+                <button
+                  type="button"
+                  className="panel-frame"
+                  onClick={() => setLightbox({ project: i, image: 0 })}
+                  aria-label={`${project.imageAlt} — büyüt`}
+                >
                   <span className="panel-status">{PROJECT_STATUS_LABEL[project.status]}</span>
                   <span className="panel-sheet">A—{String(i + 1).padStart(2, "0")}</span>
                   <img src={project.image} alt={project.imageAlt} loading="lazy" />
-                </div>
+                </button>
                 <div className="panel-strip">
-                  <div className="strip-slot is-active">
+                  <button
+                    type="button"
+                    className="strip-slot is-active"
+                    onClick={() => setLightbox({ project: i, image: 0 })}
+                    aria-label={`${project.name} — büyüt`}
+                  >
                     <img src={project.image} alt="" />
-                  </div>
+                  </button>
                   {Array.from({ length: 3 }).map((_, slotIndex) => {
                     const extra = project.gallery?.[slotIndex];
                     return extra ? (
-                      <div className="strip-slot" key={extra}>
+                      <button
+                        type="button"
+                        className="strip-slot"
+                        key={extra}
+                        onClick={() => setLightbox({ project: i, image: slotIndex + 1 })}
+                        aria-label={`${project.name} — büyüt`}
+                      >
                         <img src={extra} alt="" />
-                      </div>
+                      </button>
                     ) : (
                       <div
                         className={`strip-slot is-reserved${slotIndex === 0 ? " plus" : ""}`}
@@ -161,5 +187,13 @@ export default function ProjectRoute() {
         </Link>
       </div>
     </section>
+
+    <Lightbox
+      images={lightboxImages}
+      openIndex={lightbox ? lightbox.image : null}
+      onClose={() => setLightbox(null)}
+      onNavigate={(image) => setLightbox((l) => (l ? { ...l, image } : l))}
+    />
+    </>
   );
 }
