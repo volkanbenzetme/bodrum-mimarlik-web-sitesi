@@ -64,6 +64,10 @@ export default function HeroCarousel() {
     start();
   }
 
+  function step(dir: 1 | -1) {
+    goTo((index + dir + heroProjects.length) % heroProjects.length);
+  }
+
   const slide = heroProjects[index];
 
   return (
@@ -80,6 +84,15 @@ export default function HeroCarousel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.1, ease: "easeInOut" }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.6}
+          onDragStart={handleMouseEnter}
+          onDragEnd={(_, info) => {
+            if (info.offset.x < -60) step(1);
+            else if (info.offset.x > 60) step(-1);
+            else handleMouseLeave();
+          }}
         >
           <div className="photo-hero-media">
             <motion.img
