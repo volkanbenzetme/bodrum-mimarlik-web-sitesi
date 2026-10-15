@@ -37,7 +37,7 @@ export default function Studio() {
         <title>Stüdyo — KAIRO Studio</title>
         <meta
           name="description"
-          content="KAIRO Studio, Bodrum'un doğal dokusunu, taşın hafızasını ve köklü yaşam kültürünü tasarımın başlangıç noktası kabul eder. Mimar Volkan H. Benzetme'nin restorasyon deneyimi."
+          content="KAIRO Studio, Bodrum'un doğal dokusunu, taşın hafızasını ve köklü yaşam kültürünü tasarımın başlangıç noktası kabul eder. Anıtsal yapılardaki restorasyon deneyimi ve konseptten uygulamaya tasarım yaklaşımı."
         />
         <link rel="canonical" href="https://kairomimarlik.com/studio" />
         <meta property="og:type" content="website" />
@@ -140,8 +140,8 @@ export default function Studio() {
             viewport={{ once: true, amount: 0.4 }}
             variants={fadeUp}
           >
-            <p className="eyebrow">Mimar</p>
-            <h2 className="section-title">Volkan H. Benzetme</h2>
+            <p className="eyebrow">Tasarım Yaklaşımımız</p>
+            <h2 className="section-title">Konseptten Uygulamaya</h2>
           </motion.div>
           <motion.div
             className="lede"
@@ -152,10 +152,23 @@ export default function Studio() {
             variants={fadeUp}
           >
             <p>
-              KAIRO'nun mimarı. Bodrum'da konut ve rezidans ölçeğindeki projelerde tasarımdan sahadaki
-              uygulamaya kadar süreci bizzat yürütür. KAIRO'dan önce tescilli kültür varlıkları üzerinde
-              restorasyon mimarı olarak görev almış; İstanbul Kapalıçarşı, Patara Antik Kenti ve Hatay Belen
-              Kervansarayı gibi anıtsal yapıların restorasyon çalışmalarında yer almıştır.
+              KAIRO'da her proje bir konsept çalışmasıyla başlar. Mekânın kullanımını, ışığını, arazisini ve sizin
+              yaşam biçiminizi birlikte okur, bu okumayı mimarlık ve iç mekân tasarımı disiplinleriyle tek bir
+              bütüne dönüştürürüz. Konsept, plan, malzeme ve detay kararları mimar ve iç mimar tarafından birlikte
+              geliştirilir; sahadaki uygulama da aynı özenle takip edilir. Böylece çizimde kurulan fikir, yapıda da
+              aynı sıcaklıkla karşılığını bulur.
+            </p>
+            <p style={{ marginTop: 22 }}>
+              Anıtsal yapılardaki deneyimimiz, mevcut bir evin tadilatına bakışımızı da şekillendirir. Tadilata
+              girecek evinizi yalnızca yenilenecek bir yapı olarak değil, hafızası olan bir eser olarak ele alırız.
+              Önce yapıyı okur, taşıyıcı sistemini, malzemesini ve geçirdiği dönemleri anlarız. Ardından korunacak
+              değerlerle yenilenecek bölümleri titizlikle ayırırız. Eski iş deneyimimizin disiplinini bugünün
+              konforu ve teknolojisiyle buluşturarak size kaliteli ve kalıcı bir hizmet sunmayı hedefleriz.
+            </p>
+            <p style={{ marginTop: 22 }}>
+              KAIRO'dan önce tescilli kültür varlıkları üzerinde restorasyon mimarı olarak görev almış; İstanbul
+              Kapalıçarşı, Patara Antik Kenti ve Hatay Belen Kervansarayı gibi anıtsal yapıların restorasyon
+              çalışmalarında yer almıştır.
             </p>
             <ul style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 10, fontSize: "0.95rem" }}>
               {RESTORATION_CREDENTIALS.map((item) => (
