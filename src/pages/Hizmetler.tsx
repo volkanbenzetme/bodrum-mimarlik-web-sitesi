@@ -28,14 +28,14 @@ export default function Hizmetler() {
           name="description"
           content="Bodrum'da tadilat, villa renovasyonu, iç mimarlık ve mimari proje: tasarım ve uygulama tek çatı altında. Yalıkavak merkezli KAIRO Studio."
         />
-        <link rel="canonical" href="https://kairomimarlik.com/hizmetler" />
+        <link rel="canonical" href="https://kairomimarlik.com/hizmetler/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Hizmetler — KAIRO Studio" />
         <meta
           property="og:description"
           content="Bodrum'un yaşam biçimine, iklimine ve mevcut yapı koşullarına uygun; tasarım, renovasyon ve uygulama süreçlerini tek çatı altında ele alıyoruz."
         />
-        <meta property="og:url" content="https://kairomimarlik.com/hizmetler" />
+        <meta property="og:url" content="https://kairomimarlik.com/hizmetler/" />
         <meta property="og:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
         <meta property="og:locale" content="tr_TR" />
         <meta name="twitter:card" content="summary_large_image" />

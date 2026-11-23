@@ -5,7 +5,15 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import WhatsAppFloat from "../components/WhatsAppFloat";
 import CtaBand from "../components/CtaBand";
+import ProjectCard from "../components/ProjectCard";
 import { servicePageBySlug, servicePages } from "../data/servicePages";
+import { projects } from "../data/projects";
+import { processSteps } from "../data/process";
+
+const gridVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -36,9 +44,14 @@ export default function HizmetDetay() {
     );
   }
 
-  const url = `https://kairomimarlik.com/${page.slug}`;
+  const url = `https://kairomimarlik.com/${page.slug}/`;
   const image = "https://kairomimarlik.com/images/cta-band-entrance.jpg";
   const others = servicePages.filter((s) => s.slug !== page.slug);
+  const related = page.relatedProjects
+    .map((slug) => projects.find((p) => p.slug === slug))
+    .filter((p): p is (typeof projects)[number] => Boolean(p));
+  // Proje konumlarından bölge adları ("Yalıkavak, Bodrum — …" → "Yalıkavak"), tekrarsız.
+  const regions = Array.from(new Set(projects.map((p) => p.location.split(",")[0].trim())));
 
   return (
     <>
@@ -73,9 +86,20 @@ export default function HizmetDetay() {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://kairomimarlik.com/" },
-              { "@type": "ListItem", position: 2, name: "Hizmetler", item: "https://kairomimarlik.com/hizmetler" },
+              { "@type": "ListItem", position: 2, name: "Hizmetler", item: "https://kairomimarlik.com/hizmetler/" },
               { "@type": "ListItem", position: 3, name: page.eyebrow, item: url },
             ],
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: page.faq.map((item) => ({
+              "@type": "Question",
+              name: item.q,
+              acceptedAnswer: { "@type": "Answer", text: item.a },
+            })),
           })}
         </script>
       </Head>
@@ -131,6 +155,45 @@ export default function HizmetDetay() {
 
       <section className="section">
         <div className="container">
+          <h2 className="section-title">Çalışma sürecimiz</h2>
+          <p className="lede" style={{ marginTop: 18 }}>
+            Her proje sekiz aşamalı KAIRO Yöntemi ile yürür; bir aşama netleşmeden diğerine geçilmez.
+          </p>
+          <ol className="process-list" style={{ marginTop: 28 }}>
+            {processSteps.map((step) => (
+              <li key={step.title}>
+                <div>
+                  <p className="process-step-title">{step.title}</p>
+                  <p className="process-step-desc">{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {related.length > 0 && (
+        <section className="section">
+          <div className="container">
+            <h2 className="section-title">İlgili projeler</h2>
+            <motion.div
+              className="project-grid"
+              style={{ marginTop: 28 }}
+              variants={gridVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+            >
+              {related.map((project) => (
+                <ProjectCard key={project.slug} project={project} />
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      <section className="section">
+        <div className="container">
           <h2 className="section-title">Sık sorulanlar</h2>
           <div style={{ marginTop: 28 }}>
             {page.faq.map((item) => (
@@ -156,6 +219,10 @@ export default function HizmetDetay() {
 
       <section className="section">
         <div className="container">
+          <p className="lede" style={{ marginBottom: 32 }}>
+            Merkezimiz Yalıkavak'ta; Bodrum yarımadası genelinde çalışıyoruz. Bugüne kadar proje yürüttüğümüz
+            bölgeler: {regions.join(", ")}.
+          </p>
           <p className="eyebrow">Diğer hizmetler</p>
           <ul style={{ marginTop: 16 }}>
             {others.map((s) => (

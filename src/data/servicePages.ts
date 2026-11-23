@@ -19,6 +19,8 @@ export interface ServicePage {
   faq: { q: string; a: string }[];
   /** Schema.org Service adı. */
   serviceName: string;
+  /** Bu hizmetle ilgili portfolyo projeleri (projects.ts slug'ları). */
+  relatedProjects: string[];
 }
 
 export const servicePages: ServicePage[] = [
@@ -34,6 +36,7 @@ export const servicePages: ServicePage[] = [
       "Tadilatta asıl risk belirsizliktir: kapsamı net olmayan bir iş, bütçeyi ve takvimi dağıtır. KAIRO Studio olarak Bodrum'daki konut ve villa tadilatlarında işe keşifle başlıyor, kapsamı yazılı hale getiriyor ve ancak ondan sonra uygulamaya geçiyoruz.",
       "Tasarım ve uygulama aynı ekipte olduğu için mekânın yeniden kurgusu, malzeme seçimi ve teknik detaylar birbirinden kopmadan ilerler. Bodrum'un iklimini, tuzlu havayı ve mevcut yapı koşullarını göz önünde bulundurarak çözüm geliştiriyoruz.",
       "Süreci keşiften teslime kadar adım adım takip ediyoruz; her aşamada ne yapıldığını ve sıradaki adımı bilirsiniz.",
+      "Tadilatın kapsamı tek bir mekândan bütün eve kadar değişebilir: yalnızca mutfak veya banyo yenilemesi, mekânların yeniden kurgulanması ya da cephe, çatı, izolasyon ve tesisatı da içeren kapsamlı bir dönüşüm. Kapsam ne olursa olsun önce mevcut yapıyı okur, korunacak değerlerle yenilenecek bölümleri ayırırız.",
     ],
     scopeTitle: "Tadilat kapsamımız",
     scope: [
@@ -57,8 +60,21 @@ export const servicePages: ServicePage[] = [
         q: "Fiyatı nasıl öğrenirim?",
         a: "Fiyat, keşif sonrası kapsama göre hazırlanır. Sitede sabit bir fiyat verilmez; iletişim formundan veya WhatsApp'tan bilgi paylaşırsanız size dönüş yaparız.",
       },
+      {
+        q: "Yalnızca mutfak veya banyo yenilemesi yapıyor musunuz?",
+        a: "Evet. Tadilat kapsamı tek bir mekândan bütün eve kadar ihtiyaca göre belirlenir; mutfak ve banyo gibi tek mekân yenilemeleri de bu kapsamdadır.",
+      },
+      {
+        q: "Bodrum'un iklimi tadilatı nasıl etkiler?",
+        a: "Tuzlu hava, nem ve güçlü güneş malzemenin ömrünü doğrudan etkiler. İzolasyon, doğrama, dış mekân malzemeleri ve detayları bu koşullara göre seçeriz.",
+      },
+      {
+        q: "Tadilat için izin veya ruhsat gerekir mi?",
+        a: "Taşıyıcı sisteme, cepheye veya yapının dış görünüşüne dokunan işlerde izin gerekebilir. Hangi işin izne tabi olduğunu keşif ve kapsam aşamasında belirleriz.",
+      },
     ],
     serviceName: "Bodrum tadilat ve renovasyon",
+    relatedProjects: ["gulumser-ailesi-konutu", "d16-renovasyon", "kadim-bey-mustemilat"],
   },
   {
     slug: "bodrum-villa-renovasyon",
@@ -72,6 +88,7 @@ export const servicePages: ServicePage[] = [
       "Bir villa renovasyonu tek bir işten oluşmaz; iç mekân, cephe, çatı, izolasyon, tesisat, havuz ve peyzaj birbirini etkiler. Bunları ayrı ayrı taşeronlara bölmek yerine tek bir plan altında topluyoruz.",
       "KAIRO Studio, Bodrum'da konut, villa ve renovasyon projeleri üzerinde çalışır. Projelerimizi portfolyo sayfamızda inceleyebilirsiniz; portfolyodaki görseller sitede de belirtildiği gibi tasarım görselleridir.",
       "Villanızın mevcut durumunu keşifle değerlendirir, neyin korunacağını, neyin değişeceğini birlikte netleştirir ve uygulamayı bu kararlar üzerinden yürütürüz.",
+      "Bodrum'da yazlık olarak yapılmış pek çok villa bugün yıl boyu kullanılan evlere dönüşüyor. Bu dönüşümde izolasyon, tesisat ve doğramalar ile iç mekânın kullanım düzeni birlikte ele alınmalıdır. Renovasyonu bu bütünlük içinde planlıyoruz.",
     ],
     scopeTitle: "Villa renovasyonu kapsamı",
     scope: [
@@ -91,8 +108,17 @@ export const servicePages: ServicePage[] = [
         q: "Projeleriniz Bodrum'un neresinde?",
         a: "Merkezimiz Yalıkavak'ta; projelerimizi Bodrum genelinde yürütüyoruz. Proje konumları portfolyo sayfasında yer alır.",
       },
+      {
+        q: "Havuz ve bahçeyi de yeniliyor musunuz?",
+        a: "Evet. Havuz mekanik sistemleri, havuz izolasyonu, peyzaj ve dış mekân yaşam alanları hizmet kapsamımızdadır; iç mekân yenilemesiyle aynı plan içinde yürütülebilir.",
+      },
+      {
+        q: "Bodrum dışındayken süreci takip edebilir miyim?",
+        a: "Saha uygulaması düzenli kontrol ve raporlamayla yürütülür. İletişimi WhatsApp ve e-posta üzerinden sürdürürüz; her aşamada ne yapıldığını ve sıradaki adımı bilirsiniz.",
+      },
     ],
     serviceName: "Bodrum villa renovasyonu",
+    relatedProjects: ["mercankoy-e4", "firat-bey-villa"],
   },
   {
     slug: "bodrum-ic-mimarlik",
@@ -106,6 +132,7 @@ export const servicePages: ServicePage[] = [
       "İç mimari tasarım, yalnızca görsel bir çalışma değil; mekânın nasıl kullanılacağı, hangi malzemenin nasıl yaşlanacağı ve detayın sahada nasıl yapılacağı sorusudur. Bu yüzden tasarım ve uygulama birlikte düşünülür.",
       "Konsept geliştirme ve 3D görselleştirme ile kararları uygulamadan önce görünür hale getiriyoruz. Ardından uygulama projesini hazırlıyor, mutfak, ahşap ve çelik imalat gibi özel işleri aynı disiplinle yürütüyoruz.",
       "Bodrum'un doğal dokusunu, taşın hafızasını ve köklü yaşam kültürünü tasarımın başlangıç noktası kabul ediyoruz.",
+      "İç mekân kararları mimariden ayrı düşünülmez: duvarın yeri, pencerenin ışığı, tesisatın geçtiği yol ve dolabın ölçüsü birbirine bağlıdır. Konsept, plan, malzeme ve detay kararları mimar ve iç mimar tarafından birlikte geliştirilir.",
     ],
     scopeTitle: "İç mimarlık kapsamı",
     scope: [
@@ -125,8 +152,17 @@ export const servicePages: ServicePage[] = [
         q: "3D görselleştirme hizmetin içinde mi?",
         a: "Evet, konsept ve 3D görselleştirme tasarım sürecinin bir parçasıdır.",
       },
+      {
+        q: "Malzeme ve renk seçimleri nasıl yapılıyor?",
+        a: "Konsept aşamasında tasarım yönü belirlenir; malzeme seçimleri teknik çizimler ve iş programıyla birlikte netleştirilir. Alternatiflerin bütçeye ve uygulamaya etkisini karar vermeden önce birlikte değerlendiririz.",
+      },
+      {
+        q: "Mutfak ve dolapları da tasarlayıp uyguluyor musunuz?",
+        a: "Evet. Mutfak uygulamaları, ahşap imalat ve ince işler hizmet kapsamımızdadır; tasarımdan sahadaki montaja kadar aynı ekip tarafından takip edilir.",
+      },
     ],
     serviceName: "Bodrum iç mimarlık",
+    relatedProjects: ["d16-renovasyon", "gulumser-ailesi-konutu", "mercankoy-e4"],
   },
   {
     slug: "bodrum-mimari-proje",
@@ -140,6 +176,7 @@ export const servicePages: ServicePage[] = [
       "Mimari proje, arsanın ve çevrenin doğru okunmasıyla başlar. Bodrum'un topografyasını, iklimini ve yerel yapı kültürünü tasarımın girdisi olarak ele alıyoruz.",
       "KAIRO Studio, Yalıkavak merkezli bir mimarlık, iç mimarlık ve uygulama stüdyosudur. Konut ve rezidans projelerini portfolyomuzda görebilirsiniz.",
       "Projenin uygulama aşamasına geçmesi halinde aynı ekip sahada da süreci takip eder; böylece çizilen ile yapılan arasındaki kopukluk azalır.",
+      "Tek bir konuttan çok birimli rezidans projelerine kadar farklı ölçeklerde çalışıyoruz. Portfolyomuzda Yalıçiftlik'te 56 rezidanslı bir toplu konut projesinin tasarım ve görselleştirmesi ile Kızılağaç'ta 100 rezidanslı bir projenin avan projesi yer alır.",
     ],
     scopeTitle: "Mimari proje kapsamı",
     scope: [
@@ -158,8 +195,17 @@ export const servicePages: ServicePage[] = [
         q: "Görüşme için ne yapmalıyım?",
         a: "İletişim formunu doldurabilir veya WhatsApp'tan yazabilirsiniz; projeniz hakkındaki bilgilerle size dönüş yaparız.",
       },
+      {
+        q: "Rezidans ve toplu konut projesi yapıyor musunuz?",
+        a: "Evet. Tek konutun yanı sıra çok birimli rezidans projelerinde de tasarım ve avan proje çalışmaları yürüttük; örnekleri Projeler sayfasındadır.",
+      },
+      {
+        q: "Arsam için tasarıma nereden başlanır?",
+        a: "Önce arsanın konumu, topografyası, çevresi ve yapılaşma koşulları ile sizin ihtiyaçlarınız birlikte okunur. Tasarım yönü bu verilerden çıkar; ardından avan projeye geçilir.",
+      },
     ],
     serviceName: "Bodrum mimari proje ve tasarım",
+    relatedProjects: ["no-19-dream-residence", "gerenkuyu-rezidans"],
   },
 ];
 

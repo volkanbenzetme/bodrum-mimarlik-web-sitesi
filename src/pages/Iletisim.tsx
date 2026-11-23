@@ -19,14 +19,14 @@ export default function Iletisim() {
           name="description"
           content="KAIRO Studio ile projenizi konuşun. Yalıkavak, Bodrum ofisimizden telefon, e-posta veya form ile ulaşın — ilk ön değerlendirme görüşmesi ücretsizdir."
         />
-        <link rel="canonical" href="https://kairomimarlik.com/iletisim" />
+        <link rel="canonical" href="https://kairomimarlik.com/iletisim/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="İletişim — KAIRO Studio" />
         <meta
           property="og:description"
           content="Projenizi birlikte şekillendirelim — KAIRO Studio ile iletişime geçin."
         />
-        <meta property="og:url" content="https://kairomimarlik.com/iletisim" />
+        <meta property="og:url" content="https://kairomimarlik.com/iletisim/" />
         <meta property="og:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
         <meta property="og:locale" content="tr_TR" />
         <meta name="twitter:card" content="summary_large_image" />

@@ -25,14 +25,14 @@ export default function ProjelerIndex() {
           name="description"
           content="KAIRO Studio'nun Bodrum genelindeki mimari tasarım, iç mimari ve uygulama projeleri: konutlar, villalar ve toplu konut projeleri."
         />
-        <link rel="canonical" href="https://kairomimarlik.com/projeler" />
+        <link rel="canonical" href="https://kairomimarlik.com/projeler/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Projeler — KAIRO Studio" />
         <meta
           property="og:description"
           content="KAIRO Studio'nun Bodrum genelindeki mimari tasarım, iç mimari ve uygulama projeleri."
         />
-        <meta property="og:url" content="https://kairomimarlik.com/projeler" />
+        <meta property="og:url" content="https://kairomimarlik.com/projeler/" />
         <meta property="og:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
         <meta property="og:locale" content="tr_TR" />
         <meta name="twitter:card" content="summary_large_image" />

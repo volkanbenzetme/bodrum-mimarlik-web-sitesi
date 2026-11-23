@@ -41,7 +41,7 @@ export default function ProjeDetay() {
   }
 
   const statusLabel = PROJECT_STATUS_LABEL[project.status];
-  const canonicalUrl = `https://kairomimarlik.com/projeler/${project.slug}`;
+  const canonicalUrl = `https://kairomimarlik.com/projeler/${project.slug}/`;
 
   return (
     <>
@@ -65,7 +65,7 @@ export default function ProjeDetay() {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://kairomimarlik.com/" },
-              { "@type": "ListItem", position: 2, name: "Projeler", item: "https://kairomimarlik.com/projeler" },
+              { "@type": "ListItem", position: 2, name: "Projeler", item: "https://kairomimarlik.com/projeler/" },
               { "@type": "ListItem", position: 3, name: project.name, item: canonicalUrl },
             ],
           })}

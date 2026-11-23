@@ -39,14 +39,14 @@ export default function Studio() {
           name="description"
           content="KAIRO Studio, Bodrum'un doğal dokusunu, taşın hafızasını ve köklü yaşam kültürünü tasarımın başlangıç noktası kabul eder. Anıtsal yapılardaki restorasyon deneyimi ve konseptten uygulamaya tasarım yaklaşımı."
         />
-        <link rel="canonical" href="https://kairomimarlik.com/studio" />
+        <link rel="canonical" href="https://kairomimarlik.com/studio/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Stüdyo — KAIRO Studio" />
         <meta
           property="og:description"
           content="Kullanım, atmosfer ve uygulama gerçekliği: KAIRO Studio'nun tasarım felsefesi ve mimarı."
         />
-        <meta property="og:url" content="https://kairomimarlik.com/studio" />
+        <meta property="og:url" content="https://kairomimarlik.com/studio/" />
         <meta property="og:image" content="https://kairomimarlik.com/images/cta-band-entrance.jpg" />
         <meta property="og:locale" content="tr_TR" />
         <meta name="twitter:card" content="summary_large_image" />
