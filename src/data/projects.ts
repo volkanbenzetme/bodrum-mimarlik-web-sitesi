@@ -99,6 +99,9 @@ export const projects: Project[] = [
     description: [
       "Gülümser Ailesi Konutu, Akyarlar'da mevcut bir 120 m² konutun tasarımdan uygulamaya kadar tek elden yürütülen bir renovasyon projesidir. KAIRO bu projede tasarım, görselleştirme ve saha uygulamasının tamamından sorumlu olmuştur.",
       "Proje, ailenin geçmişten taşıdığı anılarla birlikte uzun yıllar yaşanabilecek kalıcı bir aile mirasına dönüştürülmesi hedefiyle ele alınmıştır.",
+      "Ailenin talebi evin genişletilmesi ve yenilenmesiydi. Biz yalnızca genişletmekle yetinmedik; aile için bir konsept ve yaşam senaryosu yazarak evi baştan kurguladık. Amaç, gerçekten yaşanan, sistemleri çalışan, sürdürülebilir ve estetik bir konuttu.",
+      "Yapı yazlık olarak inşa edilmişti ve bugün çok daha uzun süreli kullanılıyordu. Ne mekân kurgusu ne de altyapısı bugünün yaşam ihtiyaçlarını karşılıyordu; mevcut sistemlerin önemli bir kısmı çalışmıyordu.",
+      "Taşıyıcı elemanlar dışındaki tüm duvarlar kaldırıldı; ağır ve hafif çelik kullanılarak ev büyütüldü. Doğramalar, zemin seramikleri ve vitrifiyeler yenilendi; elektrik, klima ve sıhhi tesisat dahil tüm tesisatlar ile izolasyon baştan yapıldı. Mutfak ve diğer sabit mobilyalar özel olarak tasarlanıp imal edildi. Çelik eklemeler, dekoratif sıvalar, mobilya detayları, LED aydınlatma ve seramik seçimleri evin yeni karakterini belirleyen detaylar oldu.",
     ],
     galleryCaption: "Tamamlanmış sonuç — 3D Görselleştirme.",
     gallery: [
@@ -129,6 +132,9 @@ export const projects: Project[] = [
     cardTag: "180 m² · Villa Renovasyonu",
     description: [
       "Mercanköy Sitesi E-4, Yalıkavak'ta 180 m²'lik bir villanın tasarımdan uygulamaya kadar yenilendiği bir projedir. KAIRO, tasarım ve görselleştirmenin yanı sıra sahadaki uygulama sürecinin tamamını yürütmüştür.",
+      "Ev sahiplerinin talebi villanın genişletilmesi ve yenilenmesiydi. Bunu bir genişletme işi olarak değil, yeni bir yaşam alanı kurma işi olarak ele aldık: aile için bir konsept ve yaşam senaryosu yazdık, villayı bu senaryoya göre yeniden kurguladık.",
+      "Villa, yazlık kullanım için yapılmış eski bir yapıydı. Bugün daha uzun süreli kullanıldığı için hem mekân kurgusu hem de altyapısı yetersiz kalıyordu; mevcut sistemlerin bir kısmı çalışmıyordu.",
+      "Taşıyıcılar dışındaki duvarlar kaldırıldı, ağır ve hafif çelik konstrüksiyonla büyütmeler yapıldı. Doğramalar, seramikler, vitrifiyeler ve aydınlatma yenilendi; elektrik, klima ve sıhhi tesisat ile izolasyon baştan ele alındı. Mutfak ve sabit mobilyalar bu proje için tasarlanıp imal edildi. Çelik detaylar, dekoratif sıvalar ve LED aydınlatma villanın yeni dilini oluşturdu.",
     ],
     galleryCaption: "Tamamlanmış sonuç — 3D Görselleştirme.",
     gallery: [
